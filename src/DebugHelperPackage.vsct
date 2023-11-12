@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<Extern href="stdidcmd.h" />
+	<Extern href="vsshlids.h" />
+
+	<Extern href="VSDbgCmd.h" />
+	<Extern href="VsDebugGuids.h" />
+	<Include href="KnownImageIds.vsct"/>
+
+	<Commands package="guidDebugHelperPackage">
+		<Menus>
+			<Menu guid="guidDebugHelperPackageCmdSet" id="DebugHelperSubMenu" priority="0x0100" type="Menu">
+				<Parent guid="guidDebugHelperPackageCmdSet" id="DebugHelperTopMenuGroup"/>
+				<Strings>
+					<ButtonText>Debug Helper</ButtonText>
+				</Strings>
+			</Menu>
+		</Menus>
+
+		<Groups>
+			<Group guid="guidDebugHelperPackageCmdSet" id="DebugHelperMenuGroup" priority="0x0100">
+				<Parent guid="guidDebugHelperPackageCmdSet" id="DebugHelperSubMenu"/>
+			</Group>
+
+			<Group guid="guidDebugHelperPackageCmdSet" id="DebugHelperTopMenuGroup" priority="0x0300">
+				<Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN" />
+			</Group>
+
+			<Group guid="guidDebugHelperPackageCmdSet" id="DebugHelperTopMenuGroup" priority="0x0600">
+				<Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_COMMANDWINDOW" />
+			</Group>
+		</Groups>
+
+		<Buttons>
+			<Button guid="guidDebugHelperPackageCmdSet" id="ObjectExplorerCommandId" priority="0x0100" type="Button">
+				<Parent guid="guidDebugHelperPackageCmdSet" id="DebugHelperMenuGroup" />
+				<Icon guid="ImageCatalogGuid" id="SearchProperty" />
+				<CommandFlag>DefaultInvisible</CommandFlag>
+				<CommandFlag>DynamicVisibility</CommandFlag>
+				<CommandFlag>IconAndText</CommandFlag>
+				<CommandFlag>IconIsMoniker</CommandFlag>
+				<Strings>
+					<ButtonText>Object explorer</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidDebugHelperPackageCmdSet" id="ExportCommandId" priority="0x0200" type="Button">
+				<Parent guid="guidDebugHelperPackageCmdSet" id="DebugHelperMenuGroup" />
+				<Icon guid="ImageCatalogGuid" id="ExportData" />
+				<CommandFlag>DefaultInvisible</CommandFlag>
+				<CommandFlag>DynamicVisibility</CommandFlag>
+				<CommandFlag>IconAndText</CommandFlag>
+				<CommandFlag>IconIsMoniker</CommandFlag>
+				<Strings>
+					<ButtonText>Object export</ButtonText>
+				</Strings>
+			</Button>
+		</Buttons>
+
+		<Bitmaps>
+			<Bitmap guid="debugHelperImages" href="Commands\Resources\DebugHelperCommand.png" usedList="logo"/>
+		</Bitmaps>
+	</Commands>
+
+	<KeyBindings>
+		<KeyBinding guid="guidDebugHelperPackageCmdSet" id="ObjectExplorerCommandId"
+		            mod1="SHIFT ALT" key1="Q" editor="guidVSStd97" />
+		<KeyBinding guid="guidDebugHelperPackageCmdSet" id="ExportCommandId"
+		            mod1="SHIFT ALT" key1="X" editor="guidVSStd97" />
+	</KeyBindings>
+
+	<Symbols>
+		<GuidSymbol name="guidDebugHelperPackage" value="{5c3697ac-169b-447d-b376-1af0cc303f29}" />
+
+		<GuidSymbol name="guidDebugHelperPackageCmdSet" value="{7b60b658-3867-4350-b719-337dc4a02d5b}">
+			<IDSymbol name="DebugHelperTopMenuGroup" value="0x1020" />
+			<IDSymbol name="ObjectExplorerCommandId" value="0x0100" />
+			<IDSymbol name="ExportCommandId" value="0x0200" />
+			<IDSymbol name="DebugHelperMenuGroup" value="0x1100"/>
+			<IDSymbol name="DebugHelperSubMenu" value="0x1200"/>
+		</GuidSymbol>
+
+		<GuidSymbol name="debugHelperImages" value="{53822cf5-1f69-484f-a167-9f79ac39bc97}" >
+			<IDSymbol name="logo" value="1" />
+		</GuidSymbol>
+	</Symbols>
+</CommandTable>

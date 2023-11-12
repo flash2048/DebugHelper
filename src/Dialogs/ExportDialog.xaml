@@ -1,0 +1,62 @@
+﻿<platformUi:DialogWindow x:Class="DebugHelper.Dialogs.ExportDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DebugHelper.Dialogs"
+             xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
+             xmlns:platformUi="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+             xmlns:debugHelper="clr-namespace:DebugHelper"
+             mc:Ignorable="d" 
+             Style="{StaticResource CustomWindowStyle}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <TabControl x:Name="tabs" Margin="0,0,191,0">
+            <TabItem Header="C#">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="533*"/>
+                    </Grid.ColumnDefinitions>
+                    <avalonedit:TextEditor x:Name="cSharpEditor" 
+                        ShowLineNumbers="True" 
+                        SyntaxHighlighting="C#" 
+                        Text="" Grid.ColumnSpan="3" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Console">
+                <Grid Background="#FFE5E5E5" Height="406">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="70*"/>
+                        <ColumnDefinition Width="533*"/>
+                    </Grid.ColumnDefinitions>
+                    <avalonedit:TextEditor x:Name="consoleEditor" 
+                                           ShowLineNumbers="True" 
+                                           SyntaxHighlighting="" 
+                                           Text="" Grid.ColumnSpan="2" />
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Button Content=" - " Margin="0,48,118,0" FontWeight="Bold" HorizontalAlignment="Right" Width="20" Height="20" VerticalAlignment="Top" Click="Button_Dec_Click"/>
+        <TextBox x:Name="maxDepth" Margin="0,49,84,0" TextWrapping="Wrap" Text="3" TextAlignment="Center" FontWeight="Bold" HorizontalAlignment="Right" Width="30" Height="18" VerticalAlignment="Top"/>
+        <Button Content=" + " Margin="0,48,61,0" FontWeight="Bold" HorizontalAlignment="Right" Width="20" Click="Button_Inc_Click" Height="20" VerticalAlignment="Top"/>
+        <Label Content="Depth" HorizontalAlignment="Right" Margin="0,20,53,0" FontWeight="Bold" RenderTransformOrigin="-0.547,-0.955" Width="71" Height="26" VerticalAlignment="Top"/>
+
+
+        <Button  Margin="0,0,14,63" HorizontalAlignment="Right" Width="152" Height="37" VerticalAlignment="Bottom" Click="CopyToClipboard_Click" FontWeight="Bold">
+            <Grid>
+                <Image Opacity="0.5" Source="\imgs\copy.png" HorizontalAlignment="Left" Margin="-20,0,0,0"></Image>
+                <Label Content="Copy To Clipboard" HorizontalAlignment="Right"/>
+            </Grid>
+
+        </Button>
+        <Button Margin="0,0,14,17" HorizontalAlignment="Right" Width="152" Height="37" VerticalAlignment="Bottom" Click="Button_SaveToFile_Click" FontWeight="Bold">
+            <Grid>
+                <Image Opacity="0.5" Source="\imgs\save.png" HorizontalAlignment="Left" Margin="-40,0,0,0"></Image>
+                <Label Content="Save To File" HorizontalAlignment="Right"/>
+            </Grid>
+        </Button>
+
+    </Grid>
+</platformUi:DialogWindow>
