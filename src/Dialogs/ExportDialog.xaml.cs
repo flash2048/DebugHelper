@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using DebugHelper.Extensions;
 using DebugHelper.Options;
 using DebugHelper.Utilities;
@@ -17,7 +18,7 @@ namespace DebugHelper.Dialogs
     public partial class ExportDialog : DialogWindow
     {
         private readonly DTE2 _dte2;
-        private readonly string _objectName;
+        private string _objectName;
         private int _maxDepthValue;
         public ExportDialog(string objectName, ResourceDictionary resourceDictionary, DTE2 dte2, DebugHelperOptions debugHelperOptions) : base("Microsoft.VisualStudio.PlatformUI.DialogWindow")
         {
@@ -26,7 +27,10 @@ namespace DebugHelper.Dialogs
             this.AddResourceDictionary(resourceDictionary);
             _dte2 = dte2;
             _objectName = objectName;
+
             InitializeComponent();
+
+            codeObject.Text = objectName;
 
             _maxDepthValue = debugHelperOptions.ExportDepth;
             maxDepth.Text = _maxDepthValue.ToString();
@@ -122,6 +126,16 @@ namespace DebugHelper.Dialogs
 
             if (saveFileDialog.ShowDialog() == true)
                 File.WriteAllText(saveFileDialog.FileName, text);
+        }
+
+        private void RunDumpResult_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter)
+                return;
+
+            _objectName = codeObject.Text;
+
+            GetDumpResult();
         }
     }
 }

@@ -11,8 +11,8 @@
              Style="{StaticResource CustomWindowStyle}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TabControl x:Name="tabs" Margin="0,0,191,0">
-            <TabItem Header="C#">
+        <TabControl x:Name="tabs" Margin="0,25,191,0">
+            <TabItem Header="C#" FontWeight="Bold">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50*"/>
@@ -25,16 +25,17 @@
                         Text="" Grid.ColumnSpan="3" />
                 </Grid>
             </TabItem>
-            <TabItem Header="Console">
-                <Grid Background="#FFE5E5E5" Height="406">
+            <TabItem Header="Console" FontWeight="Bold">
+                <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="70*"/>
+                        <ColumnDefinition Width="12*"/>
+                        <ColumnDefinition Width="59*"/>
                         <ColumnDefinition Width="533*"/>
                     </Grid.ColumnDefinitions>
                     <avalonedit:TextEditor x:Name="consoleEditor" 
                                            ShowLineNumbers="True" 
                                            SyntaxHighlighting="" 
-                                           Text="" Grid.ColumnSpan="2" />
+                                           Text="" Grid.ColumnSpan="3" />
                 </Grid>
             </TabItem>
         </TabControl>
@@ -57,6 +58,7 @@
                 <Label Content="Save To File" HorizontalAlignment="Right"/>
             </Grid>
         </Button>
+        <TextBox x:Name="codeObject" Margin="10,1,14,0" Padding="10, 0, 0, 0" TextWrapping="Wrap" Text="a[0]" VerticalAlignment="Top" Height="20" KeyUp="RunDumpResult_KeyUp" FontWeight="Bold"/>
 
     </Grid>
 </platformUi:DialogWindow>
