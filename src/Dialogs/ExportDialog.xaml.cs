@@ -22,8 +22,6 @@ namespace DebugHelper.Dialogs
         private int _maxDepthValue;
         public ExportDialog(string objectName, ResourceDictionary resourceDictionary, DTE2 dte2, DebugHelperOptions debugHelperOptions) : base("Microsoft.VisualStudio.PlatformUI.DialogWindow")
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             this.AddResourceDictionary(resourceDictionary);
             _dte2 = dte2;
             _objectName = objectName;
@@ -51,7 +49,6 @@ namespace DebugHelper.Dialogs
 
         private void GetDumpResult()
         {
-
             var resultString = _dte2.GetExpressionResultString(GetExpressionString(DumpStyle.CSharp));
             cSharpEditor.Text = resultString;
 
@@ -86,8 +83,6 @@ namespace DebugHelper.Dialogs
 
         private void CopyToClipboard_Click(object sender, RoutedEventArgs e)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!(tabs.SelectedItem is TabItem tabItem))
                 throw new System.Exception("No tab selected");
 

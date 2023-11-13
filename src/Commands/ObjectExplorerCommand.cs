@@ -14,7 +14,7 @@ namespace DebugHelper.Commands
     internal sealed class ObjectExplorerCommand : IMenuCommand
     {
         public const int CmdId = 0x0100;
-        
+
         public CommandID CommandId { get; } = new CommandID(DebugHelperConstants.CommandSet, CmdId);
         private readonly AsyncPackage _package;
         private readonly DTE2 _dte2;
@@ -40,8 +40,6 @@ namespace DebugHelper.Commands
             var locals = _dte2.GetLocalNames();
             var objectExplorer = new Dialogs.ObjectExplorer(_styleResources[_options.Theme], customExpression, _dte2, _options)
             {
-                HasMinimizeButton = false,
-                HasMaximizeButton = false,
                 Width = _options.ExplorerDefaultWidth,
                 Height = _options.ExplorerDefaultHeight,
                 Variables =
@@ -52,7 +50,8 @@ namespace DebugHelper.Commands
                     }
             };
 
-            objectExplorer.ShowDialog();
+            objectExplorer.Show();
+            System.Windows.Threading.Dispatcher.Run();
         }
 
         public void Dispose()

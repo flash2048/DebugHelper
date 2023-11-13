@@ -176,15 +176,13 @@ namespace DebugHelper.Dialogs
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var objectExplorer = new ExportDialog(Variables.SelectedValue as string, _resourceDictionary, _dte2, _debugHelperOptions)
+            var exportDialog = new ExportDialog(Variables.SelectedValue as string, _resourceDictionary, _dte2, _debugHelperOptions)
             {
-                HasMinimizeButton = false,
-                HasMaximizeButton = false,
                 Width = _debugHelperOptions.ExportDefaultWidth,
-                Height = _debugHelperOptions.ExportDefaultHeight
+                Height = _debugHelperOptions.ExportDefaultHeight,
             };
-
-            objectExplorer.ShowDialog();
+            exportDialog.Show();
+            System.Windows.Threading.Dispatcher.Run();
         }
 
         private void Button_Dec_Click(object sender, RoutedEventArgs e)
