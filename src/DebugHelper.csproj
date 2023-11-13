@@ -103,8 +103,12 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Imgs\copy.png" />
-    <Content Include="Imgs\save.png" />
+    <Content Include="Imgs\copy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Imgs\save.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Libs\net48\ObjectDumping.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -129,7 +133,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Imgs\DebugHelper.ico" />
+    <Content Include="Imgs\DebugHelper.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Dialogs\ExportDialog.xaml">

@@ -15,6 +15,7 @@ namespace DebugHelper.Dialogs
     /// <summary>
     /// Interaction logic for ExportDialog.xaml
     /// </summary>
+    // ReSharper disable once RedundantExtendsListEntry
     public partial class ExportDialog : DialogWindow
     {
         private readonly DTE2 _dte2;
@@ -49,11 +50,22 @@ namespace DebugHelper.Dialogs
 
         private void GetDumpResult()
         {
-            var resultString = _dte2.GetExpressionResultString(GetExpressionString(DumpStyle.CSharp));
-            cSharpEditor.Text = resultString;
+            if (!(tabs.SelectedItem is TabItem tabItem))
+                throw new System.Exception("No tab selected");
 
-            resultString = _dte2.GetExpressionResultString(GetExpressionString(DumpStyle.Console));
-            consoleEditor.Text = resultString;
+            switch (tabItem.Header)
+            {
+                case "C#":
+                    var resultString = _dte2.GetExpressionResultString(GetExpressionString(DumpStyle.CSharp));
+                    cSharpEditor.Text = resultString;
+                    cSharpEditor.IsReadOnly = false;
+                    break;
+                case "Console":
+                    resultString = _dte2.GetExpressionResultString(GetExpressionString(DumpStyle.Console));
+                    consoleEditor.Text = resultString;
+                    consoleEditor.IsReadOnly = false;
+                    break;
+            }
         }
 
         private string GetExpressionString(DumpStyle dumpStyle)
@@ -63,22 +75,22 @@ namespace DebugHelper.Dialogs
 
         private void Button_Dec_Click(object sender, RoutedEventArgs e)
         {
-            if (_maxDepthValue > 1)
-            {
-                _maxDepthValue--;
-                maxDepth.Text = _maxDepthValue.ToString();
-                GetDumpResult();
-            }
+            if (_maxDepthValue <= 1)
+                return;
+
+            _maxDepthValue--;
+            maxDepth.Text = _maxDepthValue.ToString();
+            GetDumpResult();
         }
 
         private void Button_Inc_Click(object sender, RoutedEventArgs e)
         {
-            if (_maxDepthValue < 20)
-            {
-                _maxDepthValue++;
-                maxDepth.Text = _maxDepthValue.ToString();
-                GetDumpResult();
-            }
+            if (_maxDepthValue >= DebugHelperConstants.MaxDepthValue)
+                return;
+
+            _maxDepthValue++;
+            maxDepth.Text = _maxDepthValue.ToString();
+            GetDumpResult();
         }
 
         private void CopyToClipboard_Click(object sender, RoutedEventArgs e)
@@ -87,7 +99,6 @@ namespace DebugHelper.Dialogs
                 throw new System.Exception("No tab selected");
 
             switch (tabItem.Header)
-
             {
                 case "C#":
                     Clipboard.SetText(cSharpEditor.Text);

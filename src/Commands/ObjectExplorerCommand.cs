@@ -3,11 +3,9 @@ using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using System;
 using System.ComponentModel.Design;
-using DebugHelper.Extensions;
 using System.Windows;
 using DebugHelper.Options;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DebugHelper.Commands
 {
@@ -37,17 +35,10 @@ namespace DebugHelper.Commands
 
             var customExpression = _dte2.Debugger.GetExpression(objectName);
 
-            var locals = _dte2.GetLocalNames();
-            var objectExplorer = new Dialogs.ObjectExplorer(_styleResources[_options.Theme], customExpression, _dte2, _options)
+            var objectExplorer = new Dialogs.ObjectExplorer(objectName, _styleResources[_options.Theme], customExpression, _dte2, _options)
             {
                 Width = _options.ExplorerDefaultWidth,
-                Height = _options.ExplorerDefaultHeight,
-                Variables =
-                    {
-                        IsReadOnly = false,
-                        ItemsSource = locals,
-                        SelectedItem = locals.FirstOrDefault(l => l.Equals(objectName, StringComparison.OrdinalIgnoreCase))
-                    }
+                Height = _options.ExplorerDefaultHeight
             };
 
             objectExplorer.Show();
