@@ -11,7 +11,7 @@
                       Style="{StaticResource CustomWindowStyle}"
                       d:DesignHeight="300" d:DesignWidth="450">
     <Grid>
-        <ComboBox x:Name="Variables" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" Width="200" IsEditable="True" SelectionChanged="Variables_SelectionChanged"/>
+        <TextBox x:Name="Variables" Margin="10,10,92,0" VerticalAlignment="Top" KeyUp="Init_KeyUp" Height="20"  />
         <TreeView x:Name="ObjectTree" Margin="0,45,0,45">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate DataType="{x:Type envDte:Expression}" ItemsSource="{Binding DataMembers}">
@@ -41,9 +41,9 @@
         </TreeView>
         <TextBox x:Name="Search" Margin="10,0,170,8" TextWrapping="Wrap" Text="Search" Height="25" VerticalAlignment="Bottom" GotKeyboardFocus="Search_GotKeyboardFocus" LostKeyboardFocus="Search_LostKeyboardFocus" KeyUp="Search_KeyUp" />
         <Button Content=" - " Margin="0,0,111,11" FontWeight="Bold" HorizontalAlignment="Right" Width="20" Height="20" VerticalAlignment="Bottom" Click="Button_Dec_Click"/>
-        <TextBox x:Name="maxDepth" Margin="0,0,77,12" TextWrapping="Wrap" Text="3" TextAlignment="Center" FontWeight="Bold" HorizontalAlignment="Right" Width="30" Height="18" VerticalAlignment="Bottom"/>
+        <TextBox x:Name="maxDepth" Margin="0,0,77,12" IsReadOnly="True" TextWrapping="Wrap" Text="3" TextAlignment="Center" FontWeight="Bold" HorizontalAlignment="Right" Width="30" Height="18" VerticalAlignment="Bottom"/>
         <Button Content=" + " Margin="0,0,54,11" FontWeight="Bold" HorizontalAlignment="Right" Width="20" Height="20" VerticalAlignment="Bottom" Click="Button_Inc_Click"/>
         <Label Content="Depth" HorizontalAlignment="Right" Margin="0,0,6,7" FontWeight="Bold" Height="26" VerticalAlignment="Bottom"/>
-        <Button Content="Export" Margin="0,5,18,0" VerticalAlignment="Top" RenderTransformOrigin="1.428,0.06" HorizontalAlignment="Right" Width="74" Height="27" FontSize="14" FontWeight="Bold" Click="Button_Click"/>
+        <Button Content="Export" Margin="0,5,10,0" VerticalAlignment="Top" RenderTransformOrigin="1.428,0.06" HorizontalAlignment="Right" Width="74" Height="27" FontSize="14" FontWeight="Bold" Click="Button_Click"/>
     </Grid>
 </platformUi:DialogWindow>

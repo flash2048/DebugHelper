@@ -20,14 +20,14 @@ namespace DebugHelper.Options
         [Category(" Explorer Settings")]
         [DisplayName("Default Width:")]
         [Description("Default Width")]
-        [DefaultValue(500)]
-        public int ExplorerDefaultWidth { get; set; } = 500;
+        [DefaultValue(600)]
+        public int ExplorerDefaultWidth { get; set; } = 600;
 
         [Category(" Explorer Settings")]
         [DisplayName("Default Height:")]
         [Description("Default Height")]
-        [DefaultValue(300)]
-        public int ExplorerDefaultHeight { get; set; } = 300;
+        [DefaultValue(400)]
+        public int ExplorerDefaultHeight { get; set; } = 400;
 
         [Category(" Export Settings")]
         [DisplayName("Default Depth:")]
@@ -38,13 +38,13 @@ namespace DebugHelper.Options
         [Category(" Export Settings")]
         [DisplayName("Default Width:")]
         [Description("Default Width")]
-        [DefaultValue(500)]
-        public int ExportDefaultWidth { get; set; } = 500;
+        [DefaultValue(600)]
+        public int ExportDefaultWidth { get; set; } = 600;
 
         [Category(" Export Settings")]
         [DisplayName("Default Height:")]
         [Description("Default Height")]
-        [DefaultValue(300)]
-        public int ExportDefaultHeight { get; set; } = 300;
+        [DefaultValue(400)]
+        public int ExportDefaultHeight { get; set; } = 400;
     }
 }

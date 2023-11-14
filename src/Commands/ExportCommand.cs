@@ -6,6 +6,7 @@ using System.ComponentModel.Design;
 using System.Windows;
 using DebugHelper.Options;
 using System.Collections.Generic;
+using DebugHelper.Dialogs;
 
 namespace DebugHelper.Commands
 {
@@ -31,16 +32,14 @@ namespace DebugHelper.Commands
             ThreadHelper.ThrowIfNotOnUIThread();
 
             var objectName = TextUtils.GetSelectedText(_package);
-
-            var exportDialog = new Dialogs.ExportDialog(objectName, _styleResources[_options.Theme], _dte2, _options)
+            var exportDialog = new ExportDialog(objectName, _styleResources[_options.Theme], _dte2, _options)
             {
-                HasMinimizeButton = false,
-                HasMaximizeButton = false,
                 Width = _options.ExportDefaultWidth,
                 Height = _options.ExportDefaultHeight
             };
 
-            exportDialog.ShowDialog();
+            exportDialog.Show();
+            System.Windows.Threading.Dispatcher.Run();
         }
 
         public void Dispose()

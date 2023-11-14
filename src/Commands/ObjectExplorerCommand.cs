@@ -3,18 +3,16 @@ using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using System;
 using System.ComponentModel.Design;
-using DebugHelper.Extensions;
 using System.Windows;
 using DebugHelper.Options;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DebugHelper.Commands
 {
     internal sealed class ObjectExplorerCommand : IMenuCommand
     {
         public const int CmdId = 0x0100;
-        
+
         public CommandID CommandId { get; } = new CommandID(DebugHelperConstants.CommandSet, CmdId);
         private readonly AsyncPackage _package;
         private readonly DTE2 _dte2;
@@ -34,25 +32,16 @@ namespace DebugHelper.Commands
             ThreadHelper.ThrowIfNotOnUIThread();
 
             var objectName = TextUtils.GetSelectedText(_package);
-
             var customExpression = _dte2.Debugger.GetExpression(objectName);
 
-            var locals = _dte2.GetLocalNames();
-            var objectExplorer = new Dialogs.ObjectExplorer(_styleResources[_options.Theme], customExpression, _dte2, _options)
+            var objectExplorer = new Dialogs.ObjectExplorer(objectName, _styleResources[_options.Theme], customExpression, _dte2, _options)
             {
-                HasMinimizeButton = false,
-                HasMaximizeButton = false,
                 Width = _options.ExplorerDefaultWidth,
-                Height = _options.ExplorerDefaultHeight,
-                Variables =
-                    {
-                        IsReadOnly = false,
-                        ItemsSource = locals,
-                        SelectedItem = locals.FirstOrDefault(l => l.Equals(objectName, StringComparison.OrdinalIgnoreCase))
-                    }
+                Height = _options.ExplorerDefaultHeight
             };
 
-            objectExplorer.ShowDialog();
+            objectExplorer.Show();
+            System.Windows.Threading.Dispatcher.Run();
         }
 
         public void Dispose()

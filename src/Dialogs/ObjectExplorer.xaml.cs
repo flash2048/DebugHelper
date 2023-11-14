@@ -7,16 +7,17 @@ using System.Windows.Controls;
 using EnvDTE80;
 using System;
 using System.Windows.Media;
-using Expression = EnvDTE.Expression;
 using System.Windows.Input;
 using Microsoft.VisualStudio.Shell;
 using DebugHelper.Options;
+using Expression = EnvDTE.Expression;
 
 namespace DebugHelper.Dialogs
 {
     /// <summary>
     /// Interaction logic for ObjectExplorer.xaml
     /// </summary>
+    // ReSharper disable once RedundantExtendsListEntry
     public partial class ObjectExplorer : DialogWindow
     {
         private readonly Expression _expression;
@@ -25,33 +26,23 @@ namespace DebugHelper.Dialogs
         private readonly ResourceDictionary _resourceDictionary;
         private readonly DebugHelperOptions _debugHelperOptions;
         private int _maxDepthValue;
-        public ObjectExplorer(ResourceDictionary resourceDictionary, Expression expression, DTE2 dte2, DebugHelperOptions debugHelperOptions) : base("Microsoft.VisualStudio.PlatformUI.DialogWindow")
+        private string _objectName;
+
+        public ObjectExplorer(string objectName, ResourceDictionary resourceDictionary, Expression expression, DTE2 dte2, DebugHelperOptions debugHelperOptions) : base("Microsoft.VisualStudio.PlatformUI.DialogWindow")
         {
             this.AddResourceDictionary(resourceDictionary);
+            _objectName = objectName;
             _expression = expression;
             _dte2 = dte2;
             _resourceDictionary = resourceDictionary;
             InitializeComponent();
+            Variables.Text = _objectName;
             _defaultSearchColorBrush = Search.Foreground as SolidColorBrush;
             Search.Foreground = Brushes.Gray;
             _debugHelperOptions = debugHelperOptions;
             _maxDepthValue = _debugHelperOptions.SearchDepth;
             maxDepth.Text = _maxDepthValue.ToString();
-        }
-
-        private void Variables_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
-            if (e.Source is ComboBox src)
-            {
-                var sv = src.SelectedValue as string;
-                var customExpression = _dte2.Debugger.GetExpression(sv);
-                if (customExpression != null)
-                {
-                    ObjectTree.ItemsSource = new ObservableCollection<Expression>() { customExpression };
-                }
-            }
+            InitTree();
         }
 
         private void SearchAndFilterDataItemsWithoutRecursion(string searchTerm)
@@ -139,26 +130,24 @@ namespace DebugHelper.Dialogs
 
         private void CustomGotKeyboardFocus(object sender)
         {
-            if (sender is TextBox textBox)
-            {
-                if (textBox.Foreground != Brushes.Gray)
-                    return;
+            if (!(sender is TextBox textBox))
+                return;
+            if (textBox.Foreground != Brushes.Gray)
+                return;
 
-                textBox.Text = "";
-                textBox.Foreground = _defaultSearchColorBrush;
-            }
+            textBox.Text = "";
+            textBox.Foreground = _defaultSearchColorBrush;
         }
 
         private void CustomLostKeyboardFocus(object sender)
         {
-            if (sender is TextBox textBox)
-            {
-                if (!textBox.Text.Trim().Equals(""))
-                    return;
+            if (!(sender is TextBox textBox))
+                return;
+            if (!textBox.Text.Trim().Equals(""))
+                return;
 
-                textBox.Foreground = Brushes.Gray;
-                textBox.Text = "Search";
-            }
+            textBox.Foreground = Brushes.Gray;
+            textBox.Text = "Search";
         }
 
         private void Search_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
@@ -174,39 +163,57 @@ namespace DebugHelper.Dialogs
             SearchAndFilterDataItemsWithoutRecursion(Search.Text);
         }
 
+        private void Init_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter)
+                return;
+
+            _objectName = Variables.Text;
+            InitTree();
+        }
+
+        private void InitTree()
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            var customExpression = _dte2.Debugger.GetExpression(_objectName);
+            if (customExpression != null)
+            {
+                ObjectTree.ItemsSource = new ObservableCollection<Expression> { customExpression };
+            }
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var objectExplorer = new ExportDialog(Variables.SelectedValue as string, _resourceDictionary, _dte2, _debugHelperOptions)
+            var exportDialog = new ExportDialog(_objectName, _resourceDictionary, _dte2, _debugHelperOptions)
             {
-                HasMinimizeButton = false,
-                HasMaximizeButton = false,
                 Width = _debugHelperOptions.ExportDefaultWidth,
-                Height = _debugHelperOptions.ExportDefaultHeight
+                Height = _debugHelperOptions.ExportDefaultHeight,
             };
-
-            objectExplorer.ShowDialog();
+            exportDialog.Show();
+            System.Windows.Threading.Dispatcher.Run();
         }
 
         private void Button_Dec_Click(object sender, RoutedEventArgs e)
         {
-            if (_maxDepthValue > 1)
-            {
-                _maxDepthValue--;
-                maxDepth.Text = _maxDepthValue.ToString();
-                if (Search.Foreground != Brushes.Gray && !string.IsNullOrEmpty(Search.Text))
-                    SearchAndFilterDataItemsWithoutRecursion(Search.Text);
-            }
+            if (_maxDepthValue <= 1)
+                return;
+
+            _maxDepthValue--;
+            maxDepth.Text = _maxDepthValue.ToString();
+            if (Search.Foreground != Brushes.Gray && !string.IsNullOrEmpty(Search.Text))
+                SearchAndFilterDataItemsWithoutRecursion(Search.Text);
         }
 
         private void Button_Inc_Click(object sender, RoutedEventArgs e)
         {
-            if (_maxDepthValue < 20)
-            {
-                _maxDepthValue++;
-                maxDepth.Text = _maxDepthValue.ToString();
-                if (Search.Foreground != Brushes.Gray && !string.IsNullOrEmpty(Search.Text))
-                    SearchAndFilterDataItemsWithoutRecursion(Search.Text);
-            }
+            if (_maxDepthValue >= DebugHelperConstants.MaxDepthValue)
+                return;
+
+            _maxDepthValue++;
+            maxDepth.Text = _maxDepthValue.ToString();
+            if (Search.Foreground != Brushes.Gray && !string.IsNullOrEmpty(Search.Text))
+                SearchAndFilterDataItemsWithoutRecursion(Search.Text);
         }
     }
 }
