@@ -70,7 +70,7 @@ namespace DebugHelper.Dialogs
 
         private string GetExpressionString(DumpStyle dumpStyle)
         {
-            return $"ObjectDumper.Dump({_objectName}, new DumpOptions(){{MaxLevel = {_maxDepthValue},DumpStyle = DumpStyle.{dumpStyle}}})";
+            return $"ObjectDumper.Dump({_objectName}, new DumpOptions(){{MaxLevel = {_maxDepthValue},DumpStyle = DumpStyle.{dumpStyle}, UseTypeFullName = {useTypeFullName.IsChecked.ToString().ToLower()}, IgnoreIndexers = {ignoreIndexers.IsChecked.ToString().ToLower()}, IgnoreDefaultValues = {ignoreDefaultValues.IsChecked.ToString().ToLower()}, SetPropertiesOnly = {setPropertiesOnly.IsChecked.ToString().ToLower()}, TrimInitialVariableName = {trimInitialVariableName.IsChecked.ToString().ToLower()}, TrimTrailingColonName = {trimTrailingColonName.IsChecked.ToString().ToLower()}}})";
         }
 
         private void Button_Dec_Click(object sender, RoutedEventArgs e)
@@ -141,6 +141,11 @@ namespace DebugHelper.Dialogs
 
             _objectName = codeObject.Text;
 
+            GetDumpResult();
+        }
+
+        private void checkbox_Checked(object sender, RoutedEventArgs e)
+        {
             GetDumpResult();
         }
     }
