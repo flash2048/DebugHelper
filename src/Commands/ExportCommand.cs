@@ -40,7 +40,6 @@ namespace DebugHelper.Commands
 
             exportDialog.Show();
             System.Windows.Threading.Dispatcher.Run();
-
         }
 
         public void Dispose()

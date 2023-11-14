@@ -32,7 +32,6 @@ namespace DebugHelper.Commands
             ThreadHelper.ThrowIfNotOnUIThread();
 
             var objectName = TextUtils.GetSelectedText(_package);
-
             var customExpression = _dte2.Debugger.GetExpression(objectName);
 
             var objectExplorer = new Dialogs.ObjectExplorer(objectName, _styleResources[_options.Theme], customExpression, _dte2, _options)

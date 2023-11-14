@@ -36,11 +36,13 @@ namespace DebugHelper.Dialogs
             _dte2 = dte2;
             _resourceDictionary = resourceDictionary;
             InitializeComponent();
+            Variables.Text = _objectName;
             _defaultSearchColorBrush = Search.Foreground as SolidColorBrush;
             Search.Foreground = Brushes.Gray;
             _debugHelperOptions = debugHelperOptions;
             _maxDepthValue = _debugHelperOptions.SearchDepth;
             maxDepth.Text = _maxDepthValue.ToString();
+            InitTree();
         }
 
         private void SearchAndFilterDataItemsWithoutRecursion(string searchTerm)
@@ -166,9 +168,14 @@ namespace DebugHelper.Dialogs
             if (e.Key != Key.Enter)
                 return;
 
+            _objectName = Variables.Text;
+            InitTree();
+        }
+
+        private void InitTree()
+        {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            _objectName = Variables.Text;
             var customExpression = _dte2.Debugger.GetExpression(_objectName);
             if (customExpression != null)
             {
