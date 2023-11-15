@@ -65,7 +65,7 @@
 		<KeyBinding guid="guidDebugHelperPackageCmdSet" id="ObjectExplorerCommandId"
 		            mod1="SHIFT ALT" key1="Q" editor="guidVSStd97" />
 		<KeyBinding guid="guidDebugHelperPackageCmdSet" id="ExportCommandId"
-		            mod1="SHIFT ALT" key1="E" editor="guidVSStd97" />
+		            mod1="SHIFT ALT" key1="W" editor="guidVSStd97" />
 	</KeyBindings>
 
 	<Symbols>
