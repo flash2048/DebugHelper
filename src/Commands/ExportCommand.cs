@@ -38,8 +38,7 @@ namespace DebugHelper.Commands
                 Height = _options.ExportDefaultHeight
             };
 
-            exportDialog.Show();
-            System.Windows.Threading.Dispatcher.Run();
+            exportDialog.ShowModal();
         }
 
         public void Dispose()

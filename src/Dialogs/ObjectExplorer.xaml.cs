@@ -190,8 +190,7 @@ namespace DebugHelper.Dialogs
                 Width = _debugHelperOptions.ExportDefaultWidth,
                 Height = _debugHelperOptions.ExportDefaultHeight,
             };
-            exportDialog.Show();
-            System.Windows.Threading.Dispatcher.Run();
+            exportDialog.ShowModal();
         }
 
         private void Button_Dec_Click(object sender, RoutedEventArgs e)

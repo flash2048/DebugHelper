@@ -40,8 +40,7 @@ namespace DebugHelper.Commands
                 Height = _options.ExplorerDefaultHeight
             };
 
-            objectExplorer.Show();
-            System.Windows.Threading.Dispatcher.Run();
+            objectExplorer.ShowModal();
         }
 
         public void Dispose()

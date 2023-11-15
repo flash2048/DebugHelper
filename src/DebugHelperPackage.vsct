@@ -61,12 +61,12 @@
 		</Bitmaps>
 	</Commands>
 
-	<!--<KeyBindings>
+	<KeyBindings>
 		<KeyBinding guid="guidDebugHelperPackageCmdSet" id="ObjectExplorerCommandId"
-		            mod1="CONTROL SHIFT" key1="Q" editor="guidVSStd97" />
+		            mod1="SHIFT ALT" key1="Q" editor="guidVSStd97" />
 		<KeyBinding guid="guidDebugHelperPackageCmdSet" id="ExportCommandId"
-		            mod1="CONTROL SHIFT" key1="W" editor="guidVSStd97" />
-	</KeyBindings>-->
+		            mod1="SHIFT ALT" key1="E" editor="guidVSStd97" />
+	</KeyBindings>
 
 	<Symbols>
 		<GuidSymbol name="guidDebugHelperPackage" value="{5c3697ac-169b-447d-b376-1af0cc303f29}" />
