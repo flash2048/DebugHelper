@@ -67,8 +67,6 @@
     <Compile Include="Options\ThemeStyle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DebugHelperPackage.cs" />
-    <Compile Include="Styles\DarkTheme.xaml.cs" />
-    <Compile Include="Styles\LightTheme.xaml.cs" />
     <Compile Include="Utilities\FrameworkVersionUtils.cs" />
     <Compile Include="Utilities\TextUtils.cs" />
     <Compile Include="Extensions\DialogWindowExtension.cs" />
@@ -103,12 +101,12 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Imgs\copy.png">
+    <Resource Include="Imgs\copy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Imgs\save.png">
+    </Resource>
+    <Resource Include="Imgs\save.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
     <Content Include="Libs\net48\ObjectDumping.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -145,16 +143,6 @@
     <Page Include="Dialogs\ObjectExplorer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\DarkTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Page>
-    <Page Include="Styles\LightTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
   </ItemGroup>
   <ItemGroup />

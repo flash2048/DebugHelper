@@ -5,12 +5,6 @@ namespace DebugHelper.Options
 {
     public class DebugHelperOptions : DialogPage
     {
-        [Category(" Common Settings")]
-        [DisplayName("Color Theme:")]
-        [Description("Color Theme")]
-        [DefaultValue(ThemeStyle.Dark)]
-        public ThemeStyle Theme { get; set; } = ThemeStyle.Dark;
-
         [Category(" Explorer Settings")]
         [DisplayName("Default Search Depth:")]
         [Description("Default Search Depth")]

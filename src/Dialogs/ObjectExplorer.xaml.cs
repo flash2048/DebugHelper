@@ -1,16 +1,15 @@
 ﻿using System.Collections.ObjectModel;
-using Microsoft.VisualStudio.PlatformUI;
-using DebugHelper.Extensions;
 using System.Windows;
 using System.Collections.Generic;
 using System.Windows.Controls;
-using EnvDTE80;
 using System;
 using System.Windows.Media;
 using System.Windows.Input;
-using Microsoft.VisualStudio.Shell;
 using DebugHelper.Options;
+using EnvDTE80;
+using Microsoft.VisualStudio.Shell;
 using Expression = EnvDTE.Expression;
+using Window = System.Windows.Window;
 
 namespace DebugHelper.Dialogs
 {
@@ -18,30 +17,27 @@ namespace DebugHelper.Dialogs
     /// Interaction logic for ObjectExplorer.xaml
     /// </summary>
     // ReSharper disable once RedundantExtendsListEntry
-    public partial class ObjectExplorer : DialogWindow
+    public partial class ObjectExplorer : Window
     {
         private readonly Expression _expression;
         private readonly DTE2 _dte2;
         private readonly SolidColorBrush _defaultSearchColorBrush;
-        private readonly ResourceDictionary _resourceDictionary;
         private readonly DebugHelperOptions _debugHelperOptions;
         private int _maxDepthValue;
         private string _objectName;
 
-        public ObjectExplorer(string objectName, ResourceDictionary resourceDictionary, Expression expression, DTE2 dte2, DebugHelperOptions debugHelperOptions) : base("Microsoft.VisualStudio.PlatformUI.DialogWindow")
+        public ObjectExplorer(string objectName, Expression expression, DTE2 dte2, DebugHelperOptions debugHelperOptions)
         {
-            this.AddResourceDictionary(resourceDictionary);
             _objectName = objectName;
             _expression = expression;
             _dte2 = dte2;
-            _resourceDictionary = resourceDictionary;
             InitializeComponent();
             Variables.Text = _objectName;
             _defaultSearchColorBrush = Search.Foreground as SolidColorBrush;
             Search.Foreground = Brushes.Gray;
             _debugHelperOptions = debugHelperOptions;
             _maxDepthValue = _debugHelperOptions.SearchDepth;
-            maxDepth.Text = _maxDepthValue.ToString();
+            MaxDepth.Text = _maxDepthValue.ToString();
             InitTree();
         }
 
@@ -185,12 +181,12 @@ namespace DebugHelper.Dialogs
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var exportDialog = new ExportDialog(_objectName, _resourceDictionary, _dte2, _debugHelperOptions)
+            var exportDialog = new ExportDialog(_objectName, _dte2, _debugHelperOptions)
             {
                 Width = _debugHelperOptions.ExportDefaultWidth,
                 Height = _debugHelperOptions.ExportDefaultHeight,
             };
-            exportDialog.ShowModal();
+            exportDialog.ShowDialog();
         }
 
         private void Button_Dec_Click(object sender, RoutedEventArgs e)
@@ -199,7 +195,7 @@ namespace DebugHelper.Dialogs
                 return;
 
             _maxDepthValue--;
-            maxDepth.Text = _maxDepthValue.ToString();
+            MaxDepth.Text = _maxDepthValue.ToString();
             if (Search.Foreground != Brushes.Gray && !string.IsNullOrEmpty(Search.Text))
                 SearchAndFilterDataItemsWithoutRecursion(Search.Text);
         }
@@ -210,7 +206,7 @@ namespace DebugHelper.Dialogs
                 return;
 
             _maxDepthValue++;
-            maxDepth.Text = _maxDepthValue.ToString();
+            MaxDepth.Text = _maxDepthValue.ToString();
             if (Search.Foreground != Brushes.Gray && !string.IsNullOrEmpty(Search.Text))
                 SearchAndFilterDataItemsWithoutRecursion(Search.Text);
         }

@@ -1,20 +1,16 @@
-﻿<platformUi:DialogWindow x:Class="DebugHelper.Dialogs.ExportDialog"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:DebugHelper.Dialogs"
-             xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
-             xmlns:platformUi="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
-             xmlns:debugHelper="clr-namespace:DebugHelper"
-             mc:Ignorable="d" 
-             Style="{StaticResource CustomWindowStyle}"
-             d:DesignHeight="450" d:DesignWidth="833.5">
+﻿<Window x:Class="DebugHelper.Dialogs.ExportDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
+        mc:Ignorable="d" MinHeight="400" MinWidth="400" Height="392" Width="620">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="420*"/>
+            <ColumnDefinition Width="181*"/>
         </Grid.ColumnDefinitions>
-        <TabControl x:Name="tabs" Margin="0,25,246,0">
+        <TabControl x:Name="Tabs" Margin="0,39,38,0">
             <TabItem Header="C#" FontWeight="Bold" IsSelected="True">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
@@ -22,7 +18,7 @@
                         <ColumnDefinition Width="20*"/>
                         <ColumnDefinition Width="533*"/>
                     </Grid.ColumnDefinitions>
-                    <avalonedit:TextEditor x:Name="cSharpEditor" IsReadOnly="True"
+                    <avalonedit:TextEditor x:Name="CSharpEditor" IsReadOnly="True"
                         ShowLineNumbers="True" 
                         SyntaxHighlighting="C#" 
                         Text="Enter the variable from above and press the 'Enter' key." Grid.ColumnSpan="3" />
@@ -35,33 +31,39 @@
                         <ColumnDefinition Width="59*"/>
                         <ColumnDefinition Width="533*"/>
                     </Grid.ColumnDefinitions>
-                    <avalonedit:TextEditor x:Name="consoleEditor" IsReadOnly="True"
+                    <avalonedit:TextEditor x:Name="ConsoleEditor" IsReadOnly="True"
                                            ShowLineNumbers="True" 
                                            SyntaxHighlighting="" 
                                            Text="Enter the variable from above and press the 'Enter' key." Grid.ColumnSpan="3" />
                 </Grid>
             </TabItem>
         </TabControl>
-        <Button Content=" - " Margin="0,62,160,0" FontWeight="Bold" HorizontalAlignment="Right" Width="20" Height="20" VerticalAlignment="Top" Click="Button_Dec_Click"/>
-        <TextBox x:Name="maxDepth" IsReadOnly="True" Margin="0,63,126,0" TextWrapping="Wrap" Text="3" TextAlignment="Center" FontWeight="Bold" HorizontalAlignment="Right" Width="30" Height="18" VerticalAlignment="Top"/>
-        <Button Content=" + " Margin="0,62,104,0" FontWeight="Bold" HorizontalAlignment="Right" Width="20" Click="Button_Inc_Click" Height="20" VerticalAlignment="Top"/>
-        <Label Content="Depth" HorizontalAlignment="Right" Margin="0,34,96,0" FontWeight="Bold" RenderTransformOrigin="-0.547,-0.955" Width="70" Height="26" VerticalAlignment="Top"/>
+        <Button Content=" - " Margin="0,57,136,0" FontWeight="Bold" HorizontalAlignment="Right" Width="20" Height="20" VerticalAlignment="Top" Click="Button_Dec_Click" Grid.Column="1"/>
+        <TextBox x:Name="MaxDepth" IsReadOnly="True" Margin="0,57,101,0" TextWrapping="Wrap" Text="3" TextAlignment="Center" FontWeight="Bold" HorizontalAlignment="Right" Width="30" Height="18" VerticalAlignment="Top" Grid.Column="1"/>
+        <Button Content=" + " Margin="0,57,77,0" FontWeight="Bold" HorizontalAlignment="Right" Width="20" Click="Button_Inc_Click" Height="20" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label Content="Depth" HorizontalAlignment="Right" Margin="0,30,70,0" FontWeight="Bold" RenderTransformOrigin="-0.547,-0.955" Width="70" Height="26" VerticalAlignment="Top" Grid.Column="1"/>
 
 
-        <Button  Margin="0,0,14,63" HorizontalAlignment="Right" Width="152" Height="37" VerticalAlignment="Bottom" Click="CopyToClipboard_Click" FontWeight="Bold">
-            <DockPanel>
+        <Button  Margin="0,284,0,0" HorizontalAlignment="Center" Width="152" Height="37" VerticalAlignment="Top" Click="CopyToClipboard_Click" FontWeight="Bold" Grid.Column="1">
+            <DockPanel Width="140">
+                <Image Source="pack://application:,,,/DebugHelper;component/imgs/copy.png" Width="20" Height="20" Margin="0,0,5,0" />
                 <Label Content="Copy To Clipboard" HorizontalAlignment="Right"/>
             </DockPanel>
         </Button>
 
-        <Button Margin="0,0,14,17" Content="Save To File" HorizontalAlignment="Right" Width="152" Height="37" VerticalAlignment="Bottom" Click="Button_SaveToFile_Click" FontWeight="Bold"/>
-        <TextBox x:Name="codeObject" Margin="10,2,14,0" Padding="10, 0, 0, 0" TextWrapping="Wrap" Text="a[0]" VerticalAlignment="Top" Height="20" KeyUp="RunDumpResult_KeyUp" FontWeight="Bold"/>
-        <CheckBox x:Name="useTypeFullName" Content="Use Type Full Name" Margin="0,100,26,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Right" Width="188" FontWeight="Bold" IsChecked="False" Click="checkbox_Checked" />
-        <CheckBox x:Name="ignoreIndexers" Content="Ignore Indexers" Margin="0,123,26,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Right" Width="188" FontWeight="Bold" IsChecked="False" Click="checkbox_Checked" />
-        <CheckBox x:Name="ignoreDefaultValues" Content="Ignore Default Values" Margin="0,146,26,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Right" Width="188" FontWeight="Bold" IsChecked="False" Click="checkbox_Checked" />
-        <CheckBox x:Name="setPropertiesOnly" Content="Set Properties Only" Margin="0,169,26,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Right" Width="188" FontWeight="Bold" IsChecked="False" Click="checkbox_Checked" />
-        <CheckBox x:Name="trimInitialVariableName" Content="Trim Initial Variable Name" Margin="0,192,10,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Right" Width="204" FontWeight="Bold" IsChecked="False" Click="checkbox_Checked" />
-        <CheckBox x:Name="trimTrailingColonName" Content="Trim Trailing Colon Name" Margin="0,215,10,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Right" Width="204" FontWeight="Bold" IsChecked="False" Click="checkbox_Checked" />
+        <Button Margin="0,330,0,0" HorizontalAlignment="Center" Width="152" Height="37" VerticalAlignment="Top" Click="Button_SaveToFile_Click" FontWeight="Bold" Grid.Column="1">
+            <DockPanel HorizontalAlignment="Left" Width="140">
+                <Image Source="pack://application:,,,/DebugHelper;component/imgs/save.png" Width="20" Margin="0,0,5,0" />
+                <Label Content="Save To File" Width="108"/>
+            </DockPanel>
+        </Button>
+        <TextBox x:Name="CodeObject" Margin="10,3,14,0" Padding="10, 0, 0, 0" TextWrapping="Wrap" Text="a[0]" VerticalAlignment="Top" Height="25" KeyUp="RunDumpResult_KeyUp" FontWeight="Bold" Grid.ColumnSpan="2"/>
+        <CheckBox x:Name="UseTypeFullName" Content="Use Type Full Name" Margin="0,85,23,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Right" Width="188" FontWeight="Bold" IsChecked="False" Click="checkbox_Checked" Grid.ColumnSpan="2" />
+        <CheckBox x:Name="IgnoreIndexers" Content="Ignore Indexers" Margin="0,108,23,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Right" Width="188" FontWeight="Bold" IsChecked="False" Click="checkbox_Checked" Grid.ColumnSpan="2" />
+        <CheckBox x:Name="IgnoreDefaultValues" Content="Ignore Default Values" Margin="0,131,23,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Right" Width="188" FontWeight="Bold" IsChecked="False" Click="checkbox_Checked" Grid.ColumnSpan="2" />
+        <CheckBox x:Name="SetPropertiesOnly" Content="Set Properties Only" Margin="0,154,23,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Right" Width="188" FontWeight="Bold" IsChecked="False" Click="checkbox_Checked" Grid.ColumnSpan="2" />
+        <CheckBox x:Name="TrimInitialVariableName" Content="Trim Initial Variable Name" Margin="0,176,7,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" IsChecked="False" Click="checkbox_Checked" HorizontalAlignment="Right" Width="204" Grid.ColumnSpan="2" />
+        <CheckBox x:Name="TrimTrailingColonName" Content="Trim Trailing Colon Name" Margin="0,200,7,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Right" Width="204" FontWeight="Bold" IsChecked="False" Click="checkbox_Checked" Grid.ColumnSpan="2" />
 
     </Grid>
-</platformUi:DialogWindow>
+</Window>

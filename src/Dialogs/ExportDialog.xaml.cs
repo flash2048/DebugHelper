@@ -6,7 +6,6 @@ using DebugHelper.Extensions;
 using DebugHelper.Options;
 using DebugHelper.Utilities;
 using EnvDTE80;
-using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.Win32;
 
@@ -15,24 +14,23 @@ namespace DebugHelper.Dialogs
     /// <summary>
     /// Interaction logic for ExportDialog.xaml
     /// </summary>
-    // ReSharper disable once RedundantExtendsListEntry
-    public partial class ExportDialog : DialogWindow
+    // ReSharper disable once RedundantExtendsListEntry 
+    public partial class ExportDialog : Window
     {
         private readonly DTE2 _dte2;
         private string _objectName;
         private int _maxDepthValue;
-        public ExportDialog(string objectName, ResourceDictionary resourceDictionary, DTE2 dte2, DebugHelperOptions debugHelperOptions) : base("Microsoft.VisualStudio.PlatformUI.DialogWindow")
+        public ExportDialog(string objectName, DTE2 dte2, DebugHelperOptions debugHelperOptions)
         {
-            this.AddResourceDictionary(resourceDictionary);
             _dte2 = dte2;
             _objectName = objectName;
 
             InitializeComponent();
 
-            codeObject.Text = objectName;
+            CodeObject.Text = objectName;
 
             _maxDepthValue = debugHelperOptions.ExportDepth;
-            maxDepth.Text = _maxDepthValue.ToString();
+            MaxDepth.Text = _maxDepthValue.ToString();
 
             LoadAssembly();
 
@@ -50,27 +48,27 @@ namespace DebugHelper.Dialogs
 
         private void GetDumpResult()
         {
-            if (!(tabs.SelectedItem is TabItem tabItem))
+            if (!(Tabs.SelectedItem is TabItem tabItem))
                 throw new System.Exception("No tab selected");
 
             switch (tabItem.Header)
             {
                 case "C#":
                     var resultString = _dte2.GetExpressionResultString(GetExpressionString(DumpStyle.CSharp));
-                    cSharpEditor.Text = resultString;
-                    cSharpEditor.IsReadOnly = false;
+                    CSharpEditor.Text = resultString;
+                    CSharpEditor.IsReadOnly = false;
                     break;
                 case "Console":
                     resultString = _dte2.GetExpressionResultString(GetExpressionString(DumpStyle.Console));
-                    consoleEditor.Text = resultString;
-                    consoleEditor.IsReadOnly = false;
+                    ConsoleEditor.Text = resultString;
+                    ConsoleEditor.IsReadOnly = false;
                     break;
             }
         }
 
         private string GetExpressionString(DumpStyle dumpStyle)
         {
-            return $"ObjectDumper.Dump({_objectName}, new DumpOptions(){{MaxLevel = {_maxDepthValue},DumpStyle = DumpStyle.{dumpStyle}, UseTypeFullName = {useTypeFullName.IsChecked.ToString().ToLower()}, IgnoreIndexers = {ignoreIndexers.IsChecked.ToString().ToLower()}, IgnoreDefaultValues = {ignoreDefaultValues.IsChecked.ToString().ToLower()}, SetPropertiesOnly = {setPropertiesOnly.IsChecked.ToString().ToLower()}, TrimInitialVariableName = {trimInitialVariableName.IsChecked.ToString().ToLower()}, TrimTrailingColonName = {trimTrailingColonName.IsChecked.ToString().ToLower()}}})";
+            return $"ObjectDumper.Dump({_objectName}, new DumpOptions(){{MaxLevel = {_maxDepthValue},DumpStyle = DumpStyle.{dumpStyle}, UseTypeFullName = {UseTypeFullName.IsChecked.ToString().ToLower()}, IgnoreIndexers = {IgnoreIndexers.IsChecked.ToString().ToLower()}, IgnoreDefaultValues = {IgnoreDefaultValues.IsChecked.ToString().ToLower()}, SetPropertiesOnly = {SetPropertiesOnly.IsChecked.ToString().ToLower()}, TrimInitialVariableName = {TrimInitialVariableName.IsChecked.ToString().ToLower()}, TrimTrailingColonName = {TrimTrailingColonName.IsChecked.ToString().ToLower()}}})";
         }
 
         private void Button_Dec_Click(object sender, RoutedEventArgs e)
@@ -79,7 +77,7 @@ namespace DebugHelper.Dialogs
                 return;
 
             _maxDepthValue--;
-            maxDepth.Text = _maxDepthValue.ToString();
+            MaxDepth.Text = _maxDepthValue.ToString();
             GetDumpResult();
         }
 
@@ -89,29 +87,29 @@ namespace DebugHelper.Dialogs
                 return;
 
             _maxDepthValue++;
-            maxDepth.Text = _maxDepthValue.ToString();
+            MaxDepth.Text = _maxDepthValue.ToString();
             GetDumpResult();
         }
 
         private void CopyToClipboard_Click(object sender, RoutedEventArgs e)
         {
-            if (!(tabs.SelectedItem is TabItem tabItem))
+            if (!(Tabs.SelectedItem is TabItem tabItem))
                 throw new System.Exception("No tab selected");
 
             switch (tabItem.Header)
             {
                 case "C#":
-                    Clipboard.SetText(cSharpEditor.Text);
+                    Clipboard.SetText(CSharpEditor.Text);
                     break;
                 case "Console":
-                    Clipboard.SetText(consoleEditor.Text);
+                    Clipboard.SetText(ConsoleEditor.Text);
                     break;
             }
         }
 
         private void Button_SaveToFile_Click(object sender, RoutedEventArgs e)
         {
-            if (!(tabs.SelectedItem is TabItem tabItem))
+            if (!(Tabs.SelectedItem is TabItem tabItem))
                 throw new System.Exception("No tab selected");
 
             var saveFileDialog = new SaveFileDialog
@@ -123,10 +121,10 @@ namespace DebugHelper.Dialogs
             switch (tabItem.Header)
             {
                 case "C#":
-                    text = cSharpEditor.Text;
+                    text = CSharpEditor.Text;
                     break;
                 case "Console":
-                    text = consoleEditor.Text;
+                    text = ConsoleEditor.Text;
                     break;
             }
 
@@ -139,7 +137,7 @@ namespace DebugHelper.Dialogs
             if (e.Key != Key.Enter)
                 return;
 
-            _objectName = codeObject.Text;
+            _objectName = CodeObject.Text;
 
             GetDumpResult();
         }

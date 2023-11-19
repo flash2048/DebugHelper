@@ -12,7 +12,6 @@ using Microsoft.VisualStudio.Shell.Interop;
 using DebugHelper.Commands.Internal;
 using EnvDTE;
 using EnvDTE80;
-using System.Windows;
 using DebugHelper.Options;
 
 namespace DebugHelper
@@ -43,28 +42,12 @@ namespace DebugHelper
             _menuCommandService = (OleMenuCommandService)await GetServiceAsync(typeof(IMenuCommandService));
             Assumes.Present(_menuCommandService);
 
-            var styleResources = new Dictionary<ThemeStyle, ResourceDictionary>
-            {
-                {
-                    ThemeStyle.Dark, new ResourceDictionary
-                    {
-                        Source = new Uri("pack://application:,,,/DebugHelper;component/Styles/DarkTheme.xaml")
-                    }
-                },
-                {
-                    ThemeStyle.Light, new ResourceDictionary
-                    {
-                        Source = new Uri("pack://application:,,,/DebugHelper;component/Styles/LightTheme.xaml")
-                    }
-                }
-            };
-
             _commandHelper = new CommandHelper(dte2, this);
 
             _menuItems = new IMenuCommand[]
             {
-                (new ObjectExplorerCommand(this, dte2, styleResources, _options)),
-                (new ExportCommand(this, dte2, styleResources, _options)),
+                (new ObjectExplorerCommand(this, dte2, _options)),
+                (new ExportCommand(this, dte2, _options)),
             }.Select(AddMenuCommand).ToList();
         }
 

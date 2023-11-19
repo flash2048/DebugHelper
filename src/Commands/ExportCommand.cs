@@ -3,9 +3,7 @@ using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using System;
 using System.ComponentModel.Design;
-using System.Windows;
 using DebugHelper.Options;
-using System.Collections.Generic;
 using DebugHelper.Dialogs;
 
 namespace DebugHelper.Commands
@@ -16,14 +14,12 @@ namespace DebugHelper.Commands
         public CommandID CommandId { get; } = new CommandID(DebugHelperConstants.CommandSet, CmdId);
         private readonly AsyncPackage _package;
         private readonly DTE2 _dte2;
-        private readonly Dictionary<ThemeStyle, ResourceDictionary> _styleResources;
         private readonly DebugHelperOptions _options;
 
-        internal ExportCommand(AsyncPackage package, DTE2 dte2, Dictionary<ThemeStyle, ResourceDictionary> styleResources, DebugHelperOptions options)
+        internal ExportCommand(AsyncPackage package, DTE2 dte2, DebugHelperOptions options)
         {
             _package = package ?? throw new ArgumentNullException(nameof(package));
             _dte2 = dte2;
-            _styleResources = styleResources;
             _options = options;
         }
 
@@ -32,13 +28,13 @@ namespace DebugHelper.Commands
             ThreadHelper.ThrowIfNotOnUIThread();
 
             var objectName = TextUtils.GetSelectedText(_package);
-            var exportDialog = new ExportDialog(objectName, _styleResources[_options.Theme], _dte2, _options)
+            var exportDialog = new ExportDialog(objectName, _dte2, _options)
             {
                 Width = _options.ExportDefaultWidth,
                 Height = _options.ExportDefaultHeight
             };
 
-            exportDialog.ShowModal();
+            exportDialog.ShowDialog();
         }
 
         public void Dispose()
