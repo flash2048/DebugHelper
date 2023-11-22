@@ -6,11 +6,7 @@
         xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
         mc:Ignorable="d" MinHeight="400" MinWidth="400" Height="392" Width="620">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="420*"/>
-            <ColumnDefinition Width="181*"/>
-        </Grid.ColumnDefinitions>
-        <TabControl x:Name="Tabs" Margin="0,39,38,0">
+        <TabControl x:Name="Tabs" Margin="0,39,216,0">
             <TabItem Header="C#" FontWeight="Bold" IsSelected="True">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
@@ -44,14 +40,14 @@
         <Label Content="Depth" HorizontalAlignment="Right" Margin="0,30,70,0" FontWeight="Bold" RenderTransformOrigin="-0.547,-0.955" Width="70" Height="26" VerticalAlignment="Top" Grid.Column="1"/>
 
 
-        <Button  Margin="0,284,0,0" HorizontalAlignment="Center" Width="152" Height="37" VerticalAlignment="Top" Click="CopyToClipboard_Click" FontWeight="Bold" Grid.Column="1">
+        <Button  Margin="0,256,41,0" HorizontalAlignment="Right" Width="152" Height="37" VerticalAlignment="Top" Click="CopyToClipboard_Click" FontWeight="Bold">
             <DockPanel Width="140">
                 <Image Source="pack://application:,,,/DebugHelper;component/imgs/copy.png" Width="20" Height="20" Margin="0,0,5,0" />
                 <Label Content="Copy To Clipboard" HorizontalAlignment="Right"/>
             </DockPanel>
         </Button>
 
-        <Button Margin="0,330,0,0" HorizontalAlignment="Center" Width="152" Height="37" VerticalAlignment="Top" Click="Button_SaveToFile_Click" FontWeight="Bold" Grid.Column="1">
+        <Button Margin="0,298,41,0" HorizontalAlignment="Right" Width="152" Height="37" VerticalAlignment="Top" Click="Button_SaveToFile_Click" FontWeight="Bold">
             <DockPanel HorizontalAlignment="Left" Width="140">
                 <Image Source="pack://application:,,,/DebugHelper;component/imgs/save.png" Width="20" Margin="0,0,5,0" />
                 <Label Content="Save To File" Width="108"/>
