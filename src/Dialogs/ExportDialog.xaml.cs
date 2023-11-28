@@ -84,7 +84,7 @@ namespace DebugHelper.Dialogs
 
         private string GetExpressionJsonString()
         {
-            return $"System.Text.Json.JsonSerializer.Serialize({_objectName}, new System.Text.Json.JsonSerializerOptions() {{MaxDepth = {_maxDepthValue}, WriteIndented = true}})";
+            return $"System.Text.Json.JsonSerializer.Serialize({_objectName}, new System.Text.Json.JsonSerializerOptions() {{MaxDepth = {(_maxDepthValue < 1 ? _maxDepthValue : 1)}, WriteIndented = true}})";
         }
 
         private void Button_Dec_Click(object sender, RoutedEventArgs e)
@@ -164,7 +164,7 @@ namespace DebugHelper.Dialogs
             GetDumpResult();
         }
 
-        private void checkbox_Checked(object sender, RoutedEventArgs e)
+        private void Checkbox_Checked(object sender, RoutedEventArgs e)
         {
             GetDumpResult();
         }

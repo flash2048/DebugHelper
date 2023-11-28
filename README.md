@@ -21,6 +21,9 @@ DebugHelper is a Visual Studio extension designed to improve your debugging expe
 # Search in an object:
 <img src="https://raw.githubusercontent.com/flash2048/DebugHelper/main/assets/Search.png" />
 
+# Export as a Json:
+<img src="https://raw.githubusercontent.com/flash2048/DebugHelper/main/assets/ExportJson.png" />
+
 # Export as a C# code:
 <img src="https://raw.githubusercontent.com/flash2048/DebugHelper/main/assets/ExportCSharp.png" />
 

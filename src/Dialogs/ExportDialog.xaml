@@ -68,12 +68,12 @@
             </DockPanel>
         </Button>
         <TextBox x:Name="CodeObject" Margin="10,3,14,0" Padding="10, 0, 0, 0" TextWrapping="Wrap" Text="a[0]" VerticalAlignment="Top" Height="25" KeyUp="RunDumpResult_KeyUp" FontWeight="Bold" Grid.ColumnSpan="2"/>
-        <CheckBox x:Name="UseTypeFullName" Content="Use Type Full Name" Margin="0,85,23,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Right" Width="188" FontWeight="Bold" IsChecked="False" Click="checkbox_Checked" Grid.ColumnSpan="2" />
-        <CheckBox x:Name="IgnoreIndexers" Content="Ignore Indexers" Margin="0,108,23,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Right" Width="188" FontWeight="Bold" IsChecked="False" Click="checkbox_Checked" Grid.ColumnSpan="2" />
-        <CheckBox x:Name="IgnoreDefaultValues" Content="Ignore Default Values" Margin="0,131,23,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Right" Width="188" FontWeight="Bold" IsChecked="False" Click="checkbox_Checked" Grid.ColumnSpan="2" />
-        <CheckBox x:Name="SetPropertiesOnly" Content="Set Properties Only" Margin="0,154,23,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Right" Width="188" FontWeight="Bold" IsChecked="False" Click="checkbox_Checked" Grid.ColumnSpan="2" />
-        <CheckBox x:Name="TrimInitialVariableName" Content="Trim Initial Variable Name" Margin="0,176,7,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" IsChecked="False" Click="checkbox_Checked" HorizontalAlignment="Right" Width="204" Grid.ColumnSpan="2" />
-        <CheckBox x:Name="TrimTrailingColonName" Content="Trim Trailing Colon Name" Margin="0,200,7,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Right" Width="204" FontWeight="Bold" IsChecked="False" Click="checkbox_Checked" Grid.ColumnSpan="2" />
+        <CheckBox x:Name="UseTypeFullName" Content="Use Type Full Name" Margin="0,85,23,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Right" Width="188" FontWeight="Bold" IsChecked="False" Click="Checkbox_Checked" Grid.ColumnSpan="2" />
+        <CheckBox x:Name="IgnoreIndexers" Content="Ignore Indexers" Margin="0,108,23,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Right" Width="188" FontWeight="Bold" IsChecked="False" Click="Checkbox_Checked" Grid.ColumnSpan="2" />
+        <CheckBox x:Name="IgnoreDefaultValues" Content="Ignore Default Values" Margin="0,131,23,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Right" Width="188" FontWeight="Bold" IsChecked="False" Click="Checkbox_Checked" Grid.ColumnSpan="2" />
+        <CheckBox x:Name="SetPropertiesOnly" Content="Set Properties Only" Margin="0,154,23,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Right" Width="188" FontWeight="Bold" IsChecked="False" Click="Checkbox_Checked" Grid.ColumnSpan="2" />
+        <CheckBox x:Name="TrimInitialVariableName" Content="Trim Initial Variable Name" Margin="0,176,7,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" IsChecked="False" Click="Checkbox_Checked" HorizontalAlignment="Right" Width="204" Grid.ColumnSpan="2" />
+        <CheckBox x:Name="TrimTrailingColonName" Content="Trim Trailing Colon Name" Margin="0,200,7,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Right" Width="204" FontWeight="Bold" IsChecked="False" Click="Checkbox_Checked" Grid.ColumnSpan="2" />
 
     </Grid>
 </Window>
