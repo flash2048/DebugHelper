@@ -27,7 +27,7 @@ namespace DebugHelper.Options
         [DisplayName("Default Depth:")]
         [Description("Default Depth")]
         [DefaultValue(3)]
-        public int ExportDepth { get; set; } = 3;
+        public int ExportDepth { get; set; } = 5;
 
         [Category(" Export Settings")]
         [DisplayName("Default Width:")]
