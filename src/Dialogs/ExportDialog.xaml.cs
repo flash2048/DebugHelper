@@ -41,8 +41,14 @@ namespace DebugHelper.Dialogs
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            var path = FrameworkVersionUtils.GetObjectDumpingDllPath(_dte2.GetFrameworkVersionString());
+            var frameworkVersionString = _dte2.GetFrameworkVersionString();
+
+            var path = FrameworkVersionUtils.GetObjectDumpingDllPath(frameworkVersionString);
             var expressionString = $"System.Reflection.Assembly.LoadFile(@\"{path}\")";
+            _dte2.Debugger.GetExpression(expressionString);
+
+            path = FrameworkVersionUtils.GetSystemTextJsonDllPath(frameworkVersionString);
+            expressionString = $"System.Reflection.Assembly.LoadFile(@\"{path}\")";
             _dte2.Debugger.GetExpression(expressionString);
         }
 
@@ -53,22 +59,32 @@ namespace DebugHelper.Dialogs
 
             switch (tabItem.Header)
             {
-                case "C#":
-                    var resultString = _dte2.GetExpressionResultString(GetExpressionString(DumpStyle.CSharp));
+                case DebugHelperConstants.CsharpName:
+                    var resultString = _dte2.GetExpressionResultString(GetExpressionString("CSharp"));
                     CSharpEditor.Text = resultString;
                     CSharpEditor.IsReadOnly = false;
                     break;
-                case "Console":
-                    resultString = _dte2.GetExpressionResultString(GetExpressionString(DumpStyle.Console));
+                case DebugHelperConstants.ConsoleName:
+                    resultString = _dte2.GetExpressionResultString(GetExpressionString("Console"));
                     ConsoleEditor.Text = resultString;
                     ConsoleEditor.IsReadOnly = false;
+                    break;
+                case DebugHelperConstants.JsonName:
+                    resultString = _dte2.GetExpressionResultString(GetExpressionJsonString());
+                    JsonEditor.Text = resultString;
+                    JsonEditor.IsReadOnly = false;
                     break;
             }
         }
 
-        private string GetExpressionString(DumpStyle dumpStyle)
+        private string GetExpressionString(string dumpStyle)
         {
             return $"ObjectDumper.Dump({_objectName}, new DumpOptions(){{MaxLevel = {_maxDepthValue},DumpStyle = DumpStyle.{dumpStyle}, UseTypeFullName = {UseTypeFullName.IsChecked.ToString().ToLower()}, IgnoreIndexers = {IgnoreIndexers.IsChecked.ToString().ToLower()}, IgnoreDefaultValues = {IgnoreDefaultValues.IsChecked.ToString().ToLower()}, SetPropertiesOnly = {SetPropertiesOnly.IsChecked.ToString().ToLower()}, TrimInitialVariableName = {TrimInitialVariableName.IsChecked.ToString().ToLower()}, TrimTrailingColonName = {TrimTrailingColonName.IsChecked.ToString().ToLower()}}})";
+        }
+
+        private string GetExpressionJsonString()
+        {
+            return $"System.Text.Json.JsonSerializer.Serialize({_objectName}, new System.Text.Json.JsonSerializerOptions() {{MaxDepth = {_maxDepthValue}, WriteIndented = true}})";
         }
 
         private void Button_Dec_Click(object sender, RoutedEventArgs e)
@@ -98,11 +114,14 @@ namespace DebugHelper.Dialogs
 
             switch (tabItem.Header)
             {
-                case "C#":
+                case DebugHelperConstants.CsharpName:
                     Clipboard.SetText(CSharpEditor.Text);
                     break;
-                case "Console":
+                case DebugHelperConstants.ConsoleName:
                     Clipboard.SetText(ConsoleEditor.Text);
+                    break;
+                case DebugHelperConstants.JsonName:
+                    Clipboard.SetText(JsonEditor.Text);
                     break;
             }
         }
@@ -112,19 +131,22 @@ namespace DebugHelper.Dialogs
             if (!(Tabs.SelectedItem is TabItem tabItem))
                 throw new System.Exception("No tab selected");
 
-            var saveFileDialog = new SaveFileDialog
-            {
-                Filter = "Text file (*.txt)|*.txt|C# file (*.cs)|*.cs"
-            };
+            var saveFileDialog = new SaveFileDialog();
 
             string text = null;
             switch (tabItem.Header)
             {
-                case "C#":
+                case DebugHelperConstants.CsharpName:
                     text = CSharpEditor.Text;
+                    saveFileDialog.Filter = "C# file (*.cs)|*.cs|Text file (*.txt)|*.txt";
                     break;
-                case "Console":
+                case DebugHelperConstants.ConsoleName:
                     text = ConsoleEditor.Text;
+                    saveFileDialog.Filter = "Text file (*.txt)|*.txt";
+                    break;
+                case DebugHelperConstants.JsonName:
+                    text = JsonEditor.Text;
+                    saveFileDialog.Filter = "Json file (*.json)|*.json|Text file (*.txt)|*.txt";
                     break;
             }
 
@@ -143,6 +165,11 @@ namespace DebugHelper.Dialogs
         }
 
         private void checkbox_Checked(object sender, RoutedEventArgs e)
+        {
+            GetDumpResult();
+        }
+
+        private void Tabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             GetDumpResult();
         }

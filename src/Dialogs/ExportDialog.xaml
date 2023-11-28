@@ -4,10 +4,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
+        xmlns:debugHelper="clr-namespace:DebugHelper"
         mc:Ignorable="d" MinHeight="400" MinWidth="400" Height="392" Width="620">
     <Grid>
-        <TabControl x:Name="Tabs" Margin="0,39,216,0">
-            <TabItem Header="C#" FontWeight="Bold" IsSelected="True">
+        <TabControl x:Name="Tabs" Margin="0,39,216,0" SelectionChanged="Tabs_SelectionChanged">
+            <TabItem Header="{Binding Source={x:Static debugHelper:DebugHelperConstants.JsonName}}" FontWeight="Bold" IsSelected="True">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="12*"/>
+                        <ColumnDefinition Width="59*"/>
+                        <ColumnDefinition Width="533*"/>
+                    </Grid.ColumnDefinitions>
+                    <avalonedit:TextEditor x:Name="JsonEditor" IsReadOnly="True"
+                                           ShowLineNumbers="True" 
+                                           SyntaxHighlighting="JavaScript" 
+                                           Text="Enter the variable from above and press the 'Enter' key." Grid.ColumnSpan="3" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="{Binding Source={x:Static debugHelper:DebugHelperConstants.CsharpName}}" FontWeight="Bold">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50*"/>
@@ -20,7 +34,7 @@
                         Text="Enter the variable from above and press the 'Enter' key." Grid.ColumnSpan="3" />
                 </Grid>
             </TabItem>
-            <TabItem Header="Console" FontWeight="Bold">
+            <TabItem Header="{Binding Source={x:Static debugHelper:DebugHelperConstants.ConsoleName}}" FontWeight="Bold">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="12*"/>
