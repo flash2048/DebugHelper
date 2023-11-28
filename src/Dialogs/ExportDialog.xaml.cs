@@ -84,7 +84,7 @@ namespace DebugHelper.Dialogs
 
         private string GetExpressionJsonString()
         {
-            return $"System.Text.Json.JsonSerializer.Serialize({_objectName}, new System.Text.Json.JsonSerializerOptions() {{MaxDepth = {(_maxDepthValue < 1 ? _maxDepthValue : 1)}, WriteIndented = true}})";
+            return $"System.Text.Json.JsonSerializer.Serialize({_objectName}, new System.Text.Json.JsonSerializerOptions() {{MaxDepth = {(_maxDepthValue > 1 ? _maxDepthValue : 1)}, WriteIndented = true}})";
         }
 
         private void Button_Dec_Click(object sender, RoutedEventArgs e)
