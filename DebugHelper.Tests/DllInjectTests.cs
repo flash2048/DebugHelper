@@ -46,9 +46,9 @@ namespace DebugHelper.Tests
         [DataRow(".NETCoreApp,Version=v6.1")]
         [DataRow(".NETStandard,Version=v2.0")]
         [DataRow(".NETStandard,Version=v2.1")]
-        public void TestSystemTextJsonDllPath(string frameworkString)
+        public void TestNewtonsoftJsonDllPath(string frameworkString)
         {
-            var path = FrameworkVersionUtils.GetSystemTextJsonDllPath(frameworkString);
+            var path = FrameworkVersionUtils.GetNewtonsoftJsonDllPath(frameworkString);
             Assert.IsTrue(File.Exists(path));
         }
 
@@ -62,10 +62,10 @@ namespace DebugHelper.Tests
         [DataRow(".NETStandard,Version=v2.1")]
         public void TestLoadDll(string frameworkString)
         {
-            // System.Text.Json.JsonSerializer
-            var path = FrameworkVersionUtils.GetSystemTextJsonDllPath(frameworkString);
+            // Newtonsoft.Json
+            var path = FrameworkVersionUtils.GetNewtonsoftJsonDllPath(frameworkString);
             var assembly = System.Reflection.Assembly.LoadFile($"{path}");
-            Assert.AreEqual(assembly.GetName().Name, "System.Text.Json");
+            Assert.AreEqual(assembly.GetName().Name, "Newtonsoft.Json");
 
             // ObjectDumping
             path = FrameworkVersionUtils.GetObjectDumpingDllPath(frameworkString);

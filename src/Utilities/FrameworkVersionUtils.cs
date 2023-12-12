@@ -18,7 +18,7 @@ namespace DebugHelper.Utilities
             return Path.Combine(dllLocation, "Libs", directoryName, "ObjectDumping.dll");
         }
 
-        public static string GetSystemTextJsonDllPath(string targetFrameworkString)
+        public static string GetNewtonsoftJsonDllPath(string targetFrameworkString)
         {
             var (success, directoryName) = GetFrameworkVersionDirectoryName(targetFrameworkString);
             if (!success)
@@ -26,9 +26,9 @@ namespace DebugHelper.Utilities
 
             var dllLocation = Path.GetDirectoryName(new Uri(typeof(DebugHelperPackage).Assembly.CodeBase, UriKind.Absolute).LocalPath);
             if (dllLocation == null)
-                throw new ArgumentException("Cannot get the location of System.Text.Json.dll", nameof(targetFrameworkString));
+                throw new ArgumentException("Cannot get the location of Newtonsoft.Json.dll", nameof(targetFrameworkString));
 
-            return Path.Combine(dllLocation, "Libs", directoryName, "System.Text.Json.dll");
+            return Path.Combine(dllLocation, "Libs", directoryName, "Newtonsoft.Json.dll");
         }
 
         public static (bool success, string directoryName) GetFrameworkVersionDirectoryName(string targetFrameworkString)

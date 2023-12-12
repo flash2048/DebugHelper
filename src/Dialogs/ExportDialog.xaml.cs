@@ -47,7 +47,7 @@ namespace DebugHelper.Dialogs
             var expressionString = $"System.Reflection.Assembly.LoadFile(@\"{path}\")";
             _dte2.Debugger.GetExpression(expressionString);
 
-            path = FrameworkVersionUtils.GetSystemTextJsonDllPath(frameworkVersionString);
+            path = FrameworkVersionUtils.GetNewtonsoftJsonDllPath(frameworkVersionString);
             expressionString = $"System.Reflection.Assembly.LoadFile(@\"{path}\")";
             _dte2.Debugger.GetExpression(expressionString);
         }
@@ -60,21 +60,44 @@ namespace DebugHelper.Dialogs
             switch (tabItem.Header)
             {
                 case DebugHelperConstants.CsharpName:
+                    ShowObjectDumpOptions();
                     var resultString = _dte2.GetExpressionResultString(GetExpressionString("CSharp"));
                     CSharpEditor.Text = resultString;
                     CSharpEditor.IsReadOnly = false;
                     break;
                 case DebugHelperConstants.ConsoleName:
+                    ShowObjectDumpOptions();
                     resultString = _dte2.GetExpressionResultString(GetExpressionString("Console"));
                     ConsoleEditor.Text = resultString;
                     ConsoleEditor.IsReadOnly = false;
                     break;
                 case DebugHelperConstants.JsonName:
+                    ShowJsonOptions();
                     resultString = _dte2.GetExpressionResultString(GetExpressionJsonString());
                     JsonEditor.Text = resultString;
                     JsonEditor.IsReadOnly = false;
                     break;
             }
+        }
+
+        private void ShowJsonOptions()
+        {
+            UseTypeFullName.Visibility = Visibility.Visible;
+            IgnoreIndexers.Visibility = Visibility.Hidden;
+            IgnoreDefaultValues.Visibility = Visibility.Hidden;
+            SetPropertiesOnly.Visibility = Visibility.Hidden;
+            TrimInitialVariableName.Visibility = Visibility.Hidden;
+            TrimTrailingColonName.Visibility = Visibility.Hidden;
+        }
+
+        private void ShowObjectDumpOptions()
+        {
+            UseTypeFullName.Visibility = Visibility.Visible;
+            IgnoreIndexers.Visibility = Visibility.Visible;
+            IgnoreDefaultValues.Visibility = Visibility.Visible;
+            SetPropertiesOnly.Visibility = Visibility.Visible;
+            TrimInitialVariableName.Visibility = Visibility.Visible;
+            TrimTrailingColonName.Visibility = Visibility.Visible;
         }
 
         private string GetExpressionString(string dumpStyle)
@@ -84,7 +107,7 @@ namespace DebugHelper.Dialogs
 
         private string GetExpressionJsonString()
         {
-            return $"System.Text.Json.JsonSerializer.Serialize({_objectName}, new System.Text.Json.JsonSerializerOptions() {{MaxDepth = {(_maxDepthValue > 1 ? _maxDepthValue : 1)}, WriteIndented = true}})";
+            return $"Newtonsoft.Json.JsonConvert.SerializeObject({_objectName}, new Newtonsoft.Json.JsonSerializerSettings() {{ MaxDepth = {(_maxDepthValue > 1 ? _maxDepthValue : 1)},{(UseTypeFullName.IsChecked == true ? "TypeNameHandling = Newtonsoft.Json.TypeNameHandling.All," : string.Empty)} ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore, Formatting = Newtonsoft.Json.Formatting.Indented }})";
         }
 
         private void Button_Dec_Click(object sender, RoutedEventArgs e)
