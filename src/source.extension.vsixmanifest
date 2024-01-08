@@ -5,7 +5,6 @@
         <DisplayName>DebugHelper</DisplayName>
         <Description xml:space="preserve">A Visual Studio extension that enhances your debugging process</Description>
         <Icon>Imgs\DebugHelper.png</Icon>
-        <Preview>true</Preview>
     </Metadata>
     <Installation AllUsers="true">
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">
