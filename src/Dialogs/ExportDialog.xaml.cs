@@ -45,11 +45,11 @@ namespace DebugHelper.Dialogs
 
             var path = FrameworkVersionUtils.GetObjectDumpingDllPath(frameworkVersionString);
             var expressionString = $"System.Reflection.Assembly.LoadFile(@\"{path}\")";
-            _dte2.Debugger.GetExpression(expressionString);
+            _dte2.Debugger.GetExpression(expressionString, Timeout: DebugHelperConstants.DebuggerExpressionTimeoutMilliseconds);
 
             path = FrameworkVersionUtils.GetNewtonsoftJsonDllPath(frameworkVersionString);
             expressionString = $"System.Reflection.Assembly.LoadFile(@\"{path}\")";
-            _dte2.Debugger.GetExpression(expressionString);
+            _dte2.Debugger.GetExpression(expressionString, Timeout: DebugHelperConstants.DebuggerExpressionTimeoutMilliseconds);
         }
 
         private void GetDumpResult()

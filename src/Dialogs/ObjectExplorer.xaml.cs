@@ -172,7 +172,7 @@ namespace DebugHelper.Dialogs
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            var customExpression = _dte2.Debugger.GetExpression(_objectName);
+            var customExpression = _dte2.Debugger.GetExpression(_objectName, Timeout: DebugHelperConstants.DebuggerExpressionTimeoutMilliseconds);
             if (customExpression != null)
             {
                 ObjectTree.ItemsSource = new ObservableCollection<Expression> { customExpression };

@@ -13,5 +13,6 @@ namespace DebugHelper
         public const string DotNet6Directory = "net6.0";
         public const string DotNetStandardDirectory = "netstandard2.0";
         public const string DotNetFrameworkDirectory = "net48";
+        public const int DebuggerExpressionTimeoutMilliseconds = 20000;
     }
 }

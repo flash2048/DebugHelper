@@ -8,17 +8,31 @@
         mc:Ignorable="d" MinHeight="400" MinWidth="400" Height="392" Width="620">
     <Grid>
         <TabControl x:Name="Tabs" Margin="0,39,216,0" SelectionChanged="Tabs_SelectionChanged">
-            <TabItem Header="{Binding Source={x:Static debugHelper:DebugHelperConstants.JsonName}}" FontWeight="Bold" IsSelected="True">
+            <TabItem Header="{Binding Source={x:Static debugHelper:DebugHelperConstants.ConsoleName}}" FontWeight="Bold" IsSelected="True">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="12*"/>
                         <ColumnDefinition Width="59*"/>
                         <ColumnDefinition Width="533*"/>
                     </Grid.ColumnDefinitions>
+                    <avalonedit:TextEditor x:Name="ConsoleEditor" IsReadOnly="True"
+                                           ShowLineNumbers="True" 
+                                           SyntaxHighlighting="" 
+                                           Text="Enter the variable from above and press the 'Enter' key." Grid.ColumnSpan="3" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="{Binding Source={x:Static debugHelper:DebugHelperConstants.JsonName}}" FontWeight="Bold" >
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="39*"/>
+                        <ColumnDefinition Width="47*"/>
+                        <ColumnDefinition Width="304*"/>
+                    </Grid.ColumnDefinitions>
                     <avalonedit:TextEditor x:Name="JsonEditor" IsReadOnly="True"
                                            ShowLineNumbers="True" 
                                            SyntaxHighlighting="JavaScript" 
-                                           Text="Enter the variable from above and press the 'Enter' key." Grid.ColumnSpan="3" />
+                                           Text="Enter the variable from above and press the 'Enter' key." Grid.ColumnSpan="4" />
                 </Grid>
             </TabItem>
             <TabItem Header="{Binding Source={x:Static debugHelper:DebugHelperConstants.CsharpName}}" FontWeight="Bold">
@@ -34,24 +48,11 @@
                         Text="Enter the variable from above and press the 'Enter' key." Grid.ColumnSpan="3" />
                 </Grid>
             </TabItem>
-            <TabItem Header="{Binding Source={x:Static debugHelper:DebugHelperConstants.ConsoleName}}" FontWeight="Bold">
-                <Grid Background="#FFE5E5E5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="12*"/>
-                        <ColumnDefinition Width="59*"/>
-                        <ColumnDefinition Width="533*"/>
-                    </Grid.ColumnDefinitions>
-                    <avalonedit:TextEditor x:Name="ConsoleEditor" IsReadOnly="True"
-                                           ShowLineNumbers="True" 
-                                           SyntaxHighlighting="" 
-                                           Text="Enter the variable from above and press the 'Enter' key." Grid.ColumnSpan="3" />
-                </Grid>
-            </TabItem>
         </TabControl>
-        <Button Content=" - " Margin="0,57,136,0" FontWeight="Bold" HorizontalAlignment="Right" Width="20" Height="20" VerticalAlignment="Top" Click="Button_Dec_Click" Grid.Column="1"/>
-        <TextBox x:Name="MaxDepth" IsReadOnly="True" Margin="0,57,101,0" TextWrapping="Wrap" Text="3" TextAlignment="Center" FontWeight="Bold" HorizontalAlignment="Right" Width="30" Height="18" VerticalAlignment="Top" Grid.Column="1"/>
-        <Button Content=" + " Margin="0,57,77,0" FontWeight="Bold" HorizontalAlignment="Right" Width="20" Click="Button_Inc_Click" Height="20" VerticalAlignment="Top" Grid.Column="1"/>
-        <Label Content="Depth" HorizontalAlignment="Right" Margin="0,30,70,0" FontWeight="Bold" RenderTransformOrigin="-0.547,-0.955" Width="70" Height="26" VerticalAlignment="Top" Grid.Column="1"/>
+        <Button Content=" - " Margin="0,57,136,0" FontWeight="Bold" HorizontalAlignment="Right" Width="20" Height="20" VerticalAlignment="Top" Click="Button_Dec_Click" />
+        <TextBox x:Name="MaxDepth" IsReadOnly="True" Margin="0,57,101,0" TextWrapping="Wrap" Text="3" TextAlignment="Center" FontWeight="Bold" HorizontalAlignment="Right" Width="30" Height="18" VerticalAlignment="Top" />
+        <Button Content=" + " Margin="0,57,77,0" FontWeight="Bold" HorizontalAlignment="Right" Width="20" Click="Button_Inc_Click" Height="20" VerticalAlignment="Top" />
+        <Label Content="Depth" HorizontalAlignment="Right" Margin="0,30,70,0" FontWeight="Bold" RenderTransformOrigin="-0.547,-0.955" Width="70" Height="26" VerticalAlignment="Top" />
 
 
         <Button  Margin="0,256,41,0" HorizontalAlignment="Right" Width="152" Height="37" VerticalAlignment="Top" Click="CopyToClipboard_Click" FontWeight="Bold">

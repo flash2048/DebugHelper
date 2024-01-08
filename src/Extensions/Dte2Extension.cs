@@ -38,7 +38,7 @@ namespace DebugHelper.Extensions
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            var result = dte.Debugger.GetExpression(expression);
+            var result = dte.Debugger.GetExpression(expression, Timeout: DebugHelperConstants.DebuggerExpressionTimeoutMilliseconds);
             return Regex.Unescape(result.Value.Trim('"'));
         }
     }
