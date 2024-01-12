@@ -61,21 +61,30 @@ namespace DebugHelper.Dialogs
             {
                 case DebugHelperConstants.CsharpName:
                     ShowObjectDumpOptions();
-                    var resultString = _dte2.GetExpressionResultString(GetExpressionString("CSharp"));
-                    CSharpEditor.Text = resultString;
-                    CSharpEditor.IsReadOnly = false;
+                    using (var temporaryFile = new TemporaryFile())
+                    {
+                        _dte2.GetExpressionResultString(GetExpressionString("CSharp", temporaryFile.FileName));
+                        CSharpEditor.Text = temporaryFile.ReadAllText();
+                        CSharpEditor.IsReadOnly = false;
+                    }
                     break;
                 case DebugHelperConstants.ConsoleName:
                     ShowObjectDumpOptions();
-                    resultString = _dte2.GetExpressionResultString(GetExpressionString("Console"));
-                    ConsoleEditor.Text = resultString;
-                    ConsoleEditor.IsReadOnly = false;
+                    using (var temporaryFile = new TemporaryFile())
+                    {
+                        _dte2.GetExpressionResultString(GetExpressionString("Console", temporaryFile.FileName));
+                        ConsoleEditor.Text = temporaryFile.ReadAllText();
+                        ConsoleEditor.IsReadOnly = false;
+                    }
                     break;
                 case DebugHelperConstants.JsonName:
                     ShowJsonOptions();
-                    resultString = _dte2.GetExpressionResultString(GetExpressionJsonString());
-                    JsonEditor.Text = resultString;
-                    JsonEditor.IsReadOnly = false;
+                    using (var temporaryFile = new TemporaryFile())
+                    {
+                        _dte2.GetExpressionResultString(GetExpressionJsonString(temporaryFile.FileName));
+                        JsonEditor.Text = temporaryFile.ReadAllText();
+                        JsonEditor.IsReadOnly = false;
+                    }
                     break;
             }
         }
@@ -100,14 +109,14 @@ namespace DebugHelper.Dialogs
             TrimTrailingColonName.Visibility = Visibility.Visible;
         }
 
-        private string GetExpressionString(string dumpStyle)
+        private string GetExpressionString(string dumpStyle, string fileName)
         {
-            return $"ObjectDumper.Dump({_objectName}, new DumpOptions(){{MaxLevel = {_maxDepthValue},DumpStyle = DumpStyle.{dumpStyle}, UseTypeFullName = {UseTypeFullName.IsChecked.ToString().ToLower()}, IgnoreIndexers = {IgnoreIndexers.IsChecked.ToString().ToLower()}, IgnoreDefaultValues = {IgnoreDefaultValues.IsChecked.ToString().ToLower()}, SetPropertiesOnly = {SetPropertiesOnly.IsChecked.ToString().ToLower()}, TrimInitialVariableName = {TrimInitialVariableName.IsChecked.ToString().ToLower()}, TrimTrailingColonName = {TrimTrailingColonName.IsChecked.ToString().ToLower()}}})";
+            return $"System.IO.File.WriteAllText(@\"{fileName}\", ObjectDumper.Dump({_objectName}, new DumpOptions(){{MaxLevel = {_maxDepthValue},DumpStyle = DumpStyle.{dumpStyle}, UseTypeFullName = {UseTypeFullName.IsChecked.ToString().ToLower()}, IgnoreIndexers = {IgnoreIndexers.IsChecked.ToString().ToLower()}, IgnoreDefaultValues = {IgnoreDefaultValues.IsChecked.ToString().ToLower()}, SetPropertiesOnly = {SetPropertiesOnly.IsChecked.ToString().ToLower()}, TrimInitialVariableName = {TrimInitialVariableName.IsChecked.ToString().ToLower()}, TrimTrailingColonName = {TrimTrailingColonName.IsChecked.ToString().ToLower()}}}))";
         }
 
-        private string GetExpressionJsonString()
+        private string GetExpressionJsonString(string fileName)
         {
-            return $"Newtonsoft.Json.JsonConvert.SerializeObject({_objectName}, new Newtonsoft.Json.JsonSerializerSettings() {{ MaxDepth = {(_maxDepthValue > 1 ? _maxDepthValue : 1)},{(UseTypeFullName.IsChecked == true ? "TypeNameHandling = Newtonsoft.Json.TypeNameHandling.All," : string.Empty)} ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore, Formatting = Newtonsoft.Json.Formatting.Indented }})";
+            return $"System.IO.File.WriteAllText(@\"{fileName}\", Newtonsoft.Json.JsonConvert.SerializeObject({_objectName}, new Newtonsoft.Json.JsonSerializerSettings() {{ MaxDepth = {(_maxDepthValue > 1 ? _maxDepthValue : 1)},{(UseTypeFullName.IsChecked == true ? "TypeNameHandling = Newtonsoft.Json.TypeNameHandling.All," : string.Empty)} ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore, Formatting = Newtonsoft.Json.Formatting.Indented }}))";
         }
 
         private void Button_Dec_Click(object sender, RoutedEventArgs e)
