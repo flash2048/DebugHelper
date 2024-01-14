@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using DebugHelper.AvalonEdit;
 using DebugHelper.Extensions;
@@ -96,28 +97,40 @@ namespace DebugHelper.Dialogs
             {
                 case DebugHelperConstants.CsharpName:
                     ShowObjectDumpOptions();
+                    SaveImage.Source = new BitmapImage(new Uri("pack://application:,,,/DebugHelper;component/imgs/csharp.png"));
+
                     using (var temporaryFile = new TemporaryFile())
                     {
-                        _dte2.GetExpressionResultString(GetExpressionString("CSharp", temporaryFile.FileName));
-                        CSharpEditor.Text = temporaryFile.ReadAllText();
+                        var expressionResultTrim = _dte2.GetExpressionResultString(GetExpressionString("CSharp", temporaryFile.FileName));
+                        var result = temporaryFile.ReadAllText();
+
+                        CSharpEditor.Text = !string.IsNullOrEmpty(result) ? result : expressionResultTrim;
                         CSharpEditor.IsReadOnly = false;
                     }
                     break;
                 case DebugHelperConstants.ConsoleName:
                     ShowObjectDumpOptions();
+                    SaveImage.Source = new BitmapImage(new Uri("pack://application:,,,/DebugHelper;component/imgs/file.png"));
+
                     using (var temporaryFile = new TemporaryFile())
                     {
-                        _dte2.GetExpressionResultString(GetExpressionString("Console", temporaryFile.FileName));
-                        ConsoleEditor.Text = temporaryFile.ReadAllText();
+                        var expressionResultTrim = _dte2.GetExpressionResultString(GetExpressionString("Console", temporaryFile.FileName));
+                        var result = temporaryFile.ReadAllText();
+
+                        ConsoleEditor.Text = !string.IsNullOrEmpty(result) ? result : expressionResultTrim;
                         ConsoleEditor.IsReadOnly = false;
                     }
                     break;
                 case DebugHelperConstants.JsonName:
                     ShowJsonOptions();
+                    SaveImage.Source = new BitmapImage(new Uri("pack://application:,,,/DebugHelper;component/imgs/json.png"));
+
                     using (var temporaryFile = new TemporaryFile())
                     {
-                        _dte2.GetExpressionResultString(GetExpressionJsonString(temporaryFile.FileName));
-                        JsonEditor.Text = temporaryFile.ReadAllText();
+                        var expressionResultTrim = _dte2.GetExpressionResultString(GetExpressionJsonString(temporaryFile.FileName));
+                        var result = temporaryFile.ReadAllText();
+
+                        JsonEditor.Text = !string.IsNullOrEmpty(result) ? result : expressionResultTrim;
                         JsonEditor.IsReadOnly = false;
                     }
                     break;

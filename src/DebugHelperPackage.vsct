@@ -32,7 +32,7 @@
 		</Groups>
 
 		<Buttons>
-			<Button guid="guidDebugHelperPackageCmdSet" id="ObjectExplorerCommandId" priority="0x0100" type="Button">
+			<!--<Button guid="guidDebugHelperPackageCmdSet" id="ObjectExplorerCommandId" priority="0x0100" type="Button">
 				<Parent guid="guidDebugHelperPackageCmdSet" id="DebugHelperMenuGroup" />
 				<Icon guid="ImageCatalogGuid" id="SearchProperty" />
 				<CommandFlag>DefaultInvisible</CommandFlag>
@@ -42,7 +42,7 @@
 				<Strings>
 					<ButtonText>Object explorer</ButtonText>
 				</Strings>
-			</Button>
+			</Button>-->
 			<Button guid="guidDebugHelperPackageCmdSet" id="ExportCommandId" priority="0x0200" type="Button">
 				<Parent guid="guidDebugHelperPackageCmdSet" id="DebugHelperMenuGroup" />
 				<Icon guid="ImageCatalogGuid" id="ExportData" />
@@ -62,8 +62,8 @@
 	</Commands>
 
 	<KeyBindings>
-		<KeyBinding guid="guidDebugHelperPackageCmdSet" id="ObjectExplorerCommandId"
-		            mod1="SHIFT ALT" key1="Q" editor="guidVSStd97" />
+		<!--<KeyBinding guid="guidDebugHelperPackageCmdSet" id="ObjectExplorerCommandId"
+		            mod1="SHIFT ALT" key1="Q" editor="guidVSStd97" />-->
 		<KeyBinding guid="guidDebugHelperPackageCmdSet" id="ExportCommandId"
 		            mod1="SHIFT ALT" key1="W" editor="guidVSStd97" />
 	</KeyBindings>
@@ -73,7 +73,7 @@
 
 		<GuidSymbol name="guidDebugHelperPackageCmdSet" value="{7b60b658-3867-4350-b719-337dc4a02d5b}">
 			<IDSymbol name="DebugHelperTopMenuGroup" value="0x1020" />
-			<IDSymbol name="ObjectExplorerCommandId" value="0x0100" />
+			<!--<IDSymbol name="ObjectExplorerCommandId" value="0x0100" />-->
 			<IDSymbol name="ExportCommandId" value="0x0200" />
 			<IDSymbol name="DebugHelperMenuGroup" value="0x1100"/>
 			<IDSymbol name="DebugHelperSubMenu" value="0x1200"/>

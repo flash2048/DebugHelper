@@ -24,15 +24,15 @@ namespace DebugHelper.AvalonEdit
 
         public IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
         {
-            List<NewFolding> newFoldings = new List<NewFolding>();
+            var newFoldings = new List<NewFolding>();
 
-            Stack<int> startOffsets = new Stack<int>();
-            int lastNewLineOffset = 0;
-            char openingBrace = this.OpeningBrace;
-            char closingBrace = this.ClosingBrace;
-            for (int i = 0; i < document.TextLength; i++)
+            var startOffsets = new Stack<int>();
+            var lastNewLineOffset = 0;
+            var openingBrace = OpeningBrace;
+            var closingBrace = ClosingBrace;
+            for (var i = 0; i < document.TextLength; i++)
             {
-                char c = document.GetCharAt(i);
+                var c = document.GetCharAt(i);
                 if (c == openingBrace)
                 {
                     startOffsets.Push(i);

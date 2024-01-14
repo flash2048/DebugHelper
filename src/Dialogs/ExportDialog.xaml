@@ -8,20 +8,42 @@
         mc:Ignorable="d" MinHeight="400" MinWidth="400" Height="392" Width="620">
     <Grid>
         <TabControl x:Name="Tabs" Margin="0,39,216,0" SelectionChanged="Tabs_SelectionChanged">
-            <TabItem Header="{Binding Source={x:Static debugHelper:DebugHelperConstants.ConsoleName}}" FontWeight="Bold" IsSelected="True">
-                <Grid Background="#FFE5E5E5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="12*"/>
-                        <ColumnDefinition Width="59*"/>
-                        <ColumnDefinition Width="533*"/>
-                    </Grid.ColumnDefinitions>
-                    <avalonedit:TextEditor x:Name="ConsoleEditor" IsReadOnly="True"
-                                           ShowLineNumbers="True" 
-                                           SyntaxHighlighting="" 
-                                           Text="Enter the variable from above and press the 'Enter' key." Grid.ColumnSpan="3" />
-                </Grid>
-            </TabItem>
-            <TabItem Header="{Binding Source={x:Static debugHelper:DebugHelperConstants.JsonName}}" FontWeight="Bold" >
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Grid Name="Panel">
+                                    <Border Name="Border" Background="Transparent">
+                                        <ContentPresenter x:Name="ContentSite"
+                                                          VerticalAlignment="Center"
+                                                          HorizontalAlignment="Left"
+                                                          ContentSource="Header"
+                                                          Margin="10,2"/>
+                                    </Border>
+                                    <!--<ContentPresenter x:Name="ContentSite"
+                                                      VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"
+                                                      ContentSource="Header"
+                                                      Margin="10,2"/>-->
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Panel" Property="Background" Value="LightSkyBlue" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Panel" Property="Background" Value="White" />
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True" SourceName="Border">
+                                        <Setter TargetName="Border" Property="Background" Value="DeepSkyBlue" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+            <TabItem Header="{Binding Source={x:Static debugHelper:DebugHelperConstants.JsonName}}" FontWeight="Bold"  IsSelected="True">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="8*"/>
@@ -33,6 +55,19 @@
                                            ShowLineNumbers="True" 
                                            SyntaxHighlighting="JavaScript" 
                                            Text="Enter the variable from above and press the 'Enter' key." Grid.ColumnSpan="4" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="{Binding Source={x:Static debugHelper:DebugHelperConstants.ConsoleName}}" FontWeight="Bold">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="12*"/>
+                        <ColumnDefinition Width="59*"/>
+                        <ColumnDefinition Width="533*"/>
+                    </Grid.ColumnDefinitions>
+                    <avalonedit:TextEditor x:Name="ConsoleEditor" IsReadOnly="True"
+                                           ShowLineNumbers="True" 
+                                           SyntaxHighlighting="" 
+                                           Text="Enter the variable from above and press the 'Enter' key." Grid.ColumnSpan="3" />
                 </Grid>
             </TabItem>
             <TabItem Header="{Binding Source={x:Static debugHelper:DebugHelperConstants.CsharpName}}" FontWeight="Bold">
@@ -64,7 +99,7 @@
 
         <Button Margin="0,298,41,0" HorizontalAlignment="Right" Width="152" Height="37" VerticalAlignment="Top" Click="Button_SaveToFile_Click" FontWeight="Bold">
             <DockPanel HorizontalAlignment="Left" Width="140">
-                <Image Source="pack://application:,,,/DebugHelper;component/imgs/save.png" Width="20" Margin="0,0,5,0" />
+                <Image Name="SaveImage" Source="pack://application:,,,/DebugHelper;component/imgs/json.png" Width="20" Margin="0,0,5,0" />
                 <Label Content="Save To File" Width="108"/>
             </DockPanel>
         </Button>

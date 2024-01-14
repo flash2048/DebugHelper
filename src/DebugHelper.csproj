@@ -52,15 +52,11 @@
     <Compile Include="AvalonEdit\BraceFoldingStrategy.cs" />
     <Compile Include="Commands\Internal\CommandHelper.cs" />
     <Compile Include="Commands\ExportCommand.cs" />
-    <Compile Include="Commands\ObjectExplorerCommand.cs" />
     <Compile Include="Commands\IMenuCommand.cs" />
     <Compile Include="Commands\Internal\DisposableMenuCommand.cs" />
     <Compile Include="DebugHelperConstants.cs" />
     <Compile Include="Dialogs\ExportDialog.xaml.cs">
       <DependentUpon>ExportDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\ObjectExplorer.xaml.cs">
-      <DependentUpon>ObjectExplorer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\Dte2Extension.cs" />
     <Compile Include="Options\DebugHelperOptions.cs">
@@ -105,6 +101,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Imgs\save.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Imgs\csharp.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Imgs\file.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Imgs\json.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Content Include="Libs\net48\Newtonsoft.Json.dll">
@@ -153,10 +158,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Dialogs\ExportDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Dialogs\ObjectExplorer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

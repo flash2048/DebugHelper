@@ -8,7 +8,7 @@ namespace DebugHelper.AvalonEdit
     {
         public void UpdateFoldings(FoldingManager manager, TextDocument document)
         {
-            IEnumerable<NewFolding> foldings = CreateNewFoldings(document, out var firstErrorOffset);
+            var foldings = CreateNewFoldings(document, out var firstErrorOffset);
             manager.UpdateFoldings(foldings, firstErrorOffset);
         }
 
