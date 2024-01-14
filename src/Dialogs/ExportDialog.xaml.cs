@@ -1,11 +1,16 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
+using DebugHelper.AvalonEdit;
 using DebugHelper.Extensions;
 using DebugHelper.Options;
 using DebugHelper.Utilities;
 using EnvDTE80;
+using ICSharpCode.AvalonEdit.Folding;
+using ICSharpCode.AvalonEdit.Indentation;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.Win32;
 
@@ -20,6 +25,12 @@ namespace DebugHelper.Dialogs
         private readonly DTE2 _dte2;
         private string _objectName;
         private int _maxDepthValue;
+        private FoldingManager _foldingManagerCsharp;
+        private FoldingManager _foldingManagerJson;
+        private AbstractFoldingStrategy _foldingStrategyCsharp;
+        private bool _jsonChanged;
+        private bool _csharpChanged;
+
         public ExportDialog(string objectName, DTE2 dte2, DebugHelperOptions debugHelperOptions)
         {
             _dte2 = dte2;
@@ -33,8 +44,32 @@ namespace DebugHelper.Dialogs
             MaxDepth.Text = _maxDepthValue.ToString();
 
             LoadAssembly();
-
+            FoldingInit();
             GetDumpResult();
+        }
+
+        private void FoldingInit()
+        {
+            var foldingUpdateTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(2)
+            };
+            foldingUpdateTimer.Tick += FoldingUpdateTimer_Tick;
+            foldingUpdateTimer.Start();
+
+            CSharpEditor.TextChanged += (sender, args) => _csharpChanged = true;
+            JsonEditor.TextChanged += (sender, args) => _jsonChanged = true;
+
+            CSharpEditor.TextArea.IndentationStrategy =
+                new ICSharpCode.AvalonEdit.Indentation.CSharp.CSharpIndentationStrategy(CSharpEditor.Options);
+            JsonEditor.TextArea.IndentationStrategy = new DefaultIndentationStrategy();
+            _foldingStrategyCsharp = new BraceFoldingStrategy();
+
+            _foldingManagerCsharp = FoldingManager.Install(CSharpEditor.TextArea);
+            _foldingManagerJson = FoldingManager.Install(JsonEditor.TextArea);
+
+            _foldingStrategyCsharp.UpdateFoldings(_foldingManagerCsharp, CSharpEditor.Document);
+            _foldingStrategyCsharp.UpdateFoldings(_foldingManagerJson, JsonEditor.Document);
         }
 
         private void LoadAssembly()
@@ -55,7 +90,7 @@ namespace DebugHelper.Dialogs
         private void GetDumpResult()
         {
             if (!(Tabs.SelectedItem is TabItem tabItem))
-                throw new System.Exception("No tab selected");
+                throw new Exception("No tab selected");
 
             switch (tabItem.Header)
             {
@@ -142,7 +177,7 @@ namespace DebugHelper.Dialogs
         private void CopyToClipboard_Click(object sender, RoutedEventArgs e)
         {
             if (!(Tabs.SelectedItem is TabItem tabItem))
-                throw new System.Exception("No tab selected");
+                throw new Exception("No tab selected");
 
             switch (tabItem.Header)
             {
@@ -161,7 +196,7 @@ namespace DebugHelper.Dialogs
         private void Button_SaveToFile_Click(object sender, RoutedEventArgs e)
         {
             if (!(Tabs.SelectedItem is TabItem tabItem))
-                throw new System.Exception("No tab selected");
+                throw new Exception("No tab selected");
 
             var saveFileDialog = new SaveFileDialog();
 
@@ -178,12 +213,33 @@ namespace DebugHelper.Dialogs
                     break;
                 case DebugHelperConstants.JsonName:
                     text = JsonEditor.Text;
-                    saveFileDialog.Filter = "Json file (*.json)|*.json|Text file (*.txt)|*.txt";
+                    saveFileDialog.Filter = "Json (*.json)|*.json|Text file (*.txt)|*.txt|All files (*.*)|*.*";
                     break;
             }
 
             if (saveFileDialog.ShowDialog() == true)
                 File.WriteAllText(saveFileDialog.FileName, text);
+        }
+
+        private void FoldingUpdateTimer_Tick(object sender, EventArgs e)
+        {
+            if (_foldingStrategyCsharp == null)
+                return;
+
+            if (!(Tabs.SelectedItem is TabItem tabItem))
+                throw new Exception("No tab selected");
+
+            switch (tabItem.Header)
+            {
+                case DebugHelperConstants.CsharpName:
+                    if (_csharpChanged)
+                        _foldingStrategyCsharp.UpdateFoldings(_foldingManagerCsharp, CSharpEditor.Document);
+                    break;
+                case DebugHelperConstants.JsonName:
+                    if (_jsonChanged)
+                        _foldingStrategyCsharp.UpdateFoldings(_foldingManagerJson, JsonEditor.Document);
+                    break;
+            }
         }
 
         private void RunDumpResult_KeyUp(object sender, KeyEventArgs e)

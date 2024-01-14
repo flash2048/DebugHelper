@@ -48,6 +48,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AvalonEdit\AbstractFoldingStrategy.cs" />
+    <Compile Include="AvalonEdit\BraceFoldingStrategy.cs" />
     <Compile Include="Commands\Internal\CommandHelper.cs" />
     <Compile Include="Commands\ExportCommand.cs" />
     <Compile Include="Commands\ObjectExplorerCommand.cs" />
