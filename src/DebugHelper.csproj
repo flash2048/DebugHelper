@@ -62,13 +62,11 @@
     <Compile Include="Options\DebugHelperOptions.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Options\ThemeStyle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DebugHelperPackage.cs" />
     <Compile Include="Utilities\FrameworkVersionUtils.cs" />
     <Compile Include="Utilities\TemporaryFile.cs" />
     <Compile Include="Utilities\TextUtils.cs" />
-    <Compile Include="Extensions\DialogWindowExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="source.extension.vsixmanifest">
