@@ -18,7 +18,7 @@ DebugHelper is a Visual Studio extension designed to improve your debugging expe
 <img src="https://raw.githubusercontent.com/flash2048/DebugHelper/main/assets/ExportDialog.gif" />
 
 ## Image viewer:
-#### View and save images from strings, byte arrays, memory strings, etc.
+#### View and save images from strings, byte arrays, memory streams, etc.
 <img src="https://raw.githubusercontent.com/flash2048/DebugHelper/main/assets/ImageViewer.png" />
 
 # Configurable:
