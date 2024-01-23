@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Media.Imaging;
 
 namespace DebugHelper
 {
@@ -13,6 +14,7 @@ namespace DebugHelper
         public const string DotNet6Directory = "net6.0";
         public const string DotNetStandardDirectory = "netstandard2.0";
         public const string DotNetFrameworkDirectory = "net48";
-        public const int DebuggerExpressionTimeoutMilliseconds = 20000;
+        public const int DebuggerExpressionTimeoutMilliseconds = 12000;
+        public static readonly BitmapImage Icon = new BitmapImage(new Uri("pack://application:,,,/DebugHelper;component/imgs/DebugHelper.ico"));
     }
 }

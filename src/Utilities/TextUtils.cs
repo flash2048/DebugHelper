@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Windows.Media.Imaging;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.TextManager.Interop;
 
@@ -64,6 +65,39 @@ namespace DebugHelper.Utilities
             IVsTextView textViewCurrent = null;
             textManager?.GetActiveView(1, null, out textViewCurrent);
             return textViewCurrent;
+        }
+
+        public static BitmapImage GetBitmapImageFromString(string str)
+        {
+            var bitmapImage = new BitmapImage();
+
+            if (IsBase64String(str, out var array))
+            {
+                bitmapImage.BeginInit();
+                bitmapImage.StreamSource = new System.IO.MemoryStream(array);
+                bitmapImage.EndInit();
+            }
+            else
+            {
+                bitmapImage.BeginInit();
+                bitmapImage.UriSource = new Uri(str);
+                bitmapImage.EndInit();
+            }
+            return bitmapImage;
+        }
+
+        static bool IsBase64String(string input, out byte[] array)
+        {
+            try
+            {
+                array = Convert.FromBase64String(input);
+                return true;
+            }
+            catch (FormatException)
+            {
+                array = Array.Empty<byte>();
+                return false;
+            }
         }
     }
 }

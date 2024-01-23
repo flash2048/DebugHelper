@@ -1,0 +1,20 @@
+﻿<Window x:Class="DebugHelper.Dialogs.ImageDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" Height="356" Width="654">
+    <Grid>
+        <TextBox x:Name="CodeObject" Margin="10,11,186,0" TextWrapping="Wrap" Text="variableName" KeyUp="RunDumpResult_KeyUp" VerticalAlignment="Top" Height="20"/>
+
+        <Image Name="Image" Margin="3,40,3,3"/>
+        <Button Margin="0,5,10,0" HorizontalAlignment="Right" Width="110" Height="30" VerticalAlignment="Top" Click="Button_SaveToFile_Click" FontWeight="Bold">
+            <DockPanel HorizontalAlignment="Left" Width="140">
+                <Image Name="SaveImage" Source="pack://application:,,,/DebugHelper;component/imgs/image.png" Width="20" Margin="0,0,5,0" />
+                <Label Content="Save To File" Width="108"/>
+            </DockPanel>
+        </Button>
+        <Label Name="ErrorText" Content="There seems to be an issue with displaying the image. &#xD;&#xA;Could you please attempt to update your data or report the problem?" Margin="30,63,30,0" VerticalAlignment="Top" Height="69" FontSize="16" FontWeight="Bold"/>
+        <Label x:Name="ExceptionText" Content=" " Margin="38,137,38,0" VerticalAlignment="Top" Height="170" FontSize="14"/>
+    </Grid>
+</Window>

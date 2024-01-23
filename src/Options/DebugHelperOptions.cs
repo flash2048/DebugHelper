@@ -22,5 +22,23 @@ namespace DebugHelper.Options
         [Description("Default Height")]
         [DefaultValue(400)]
         public int ExportDefaultHeight { get; set; } = 400;
+
+        [Category(" Export Settings")]
+        [DisplayName("Time-out milliseconds:")]
+        [Description("Time-out milliseconds")]
+        [DefaultValue(400)]
+        public int ExportTimeout { get; set; } = 20000;
+
+        [Category(" Image Settings")]
+        [DisplayName("Default Width:")]
+        [Description("Default Width")]
+        [DefaultValue(600)]
+        public int ImageDefaultWidth { get; set; } = 600;
+
+        [Category(" Image Settings")]
+        [DisplayName("Default Height:")]
+        [Description("Default Height")]
+        [DefaultValue(400)]
+        public int ImageDefaultHeight { get; set; } = 400;
     }
 }

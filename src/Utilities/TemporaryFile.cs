@@ -3,7 +3,7 @@ using System.IO;
 
 namespace DebugHelper.Utilities
 {
-    internal class TemporaryFile : IDisposable
+    public class TemporaryFile : IDisposable
     {
         public TemporaryFile()
         {

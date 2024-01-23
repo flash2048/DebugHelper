@@ -60,7 +60,7 @@ namespace DebugHelper.Tests
         [DataRow(".NETCoreApp,Version=v6.1")]
         [DataRow(".NETStandard,Version=v2.0")]
         [DataRow(".NETStandard,Version=v2.1")]
-        public void TestLoadDll(string frameworkString)
+        public void TestDllLoad(string frameworkString)
         {
             // Newtonsoft.Json
             var path = FrameworkVersionUtils.GetNewtonsoftJsonDllPath(frameworkString);

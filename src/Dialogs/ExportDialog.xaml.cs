@@ -26,6 +26,7 @@ namespace DebugHelper.Dialogs
         private readonly DTE2 _dte2;
         private string _objectName;
         private int _maxDepthValue;
+        private readonly int _timeout;
         private FoldingManager _foldingManagerCsharp;
         private FoldingManager _foldingManagerJson;
         private AbstractFoldingStrategy _foldingStrategyCsharp;
@@ -43,6 +44,7 @@ namespace DebugHelper.Dialogs
 
             _maxDepthValue = debugHelperOptions.ExportDepth;
             MaxDepth.Text = _maxDepthValue.ToString();
+            _timeout = debugHelperOptions.ExportTimeout;
 
             LoadAssembly();
             FoldingInit();
@@ -81,11 +83,11 @@ namespace DebugHelper.Dialogs
 
             var path = FrameworkVersionUtils.GetObjectDumpingDllPath(frameworkVersionString);
             var expressionString = $"System.Reflection.Assembly.LoadFile(@\"{path}\")";
-            _dte2.Debugger.GetExpression(expressionString, Timeout: DebugHelperConstants.DebuggerExpressionTimeoutMilliseconds);
+            _dte2.Debugger.GetExpression(expressionString, Timeout: _timeout);
 
             path = FrameworkVersionUtils.GetNewtonsoftJsonDllPath(frameworkVersionString);
             expressionString = $"System.Reflection.Assembly.LoadFile(@\"{path}\")";
-            _dte2.Debugger.GetExpression(expressionString, Timeout: DebugHelperConstants.DebuggerExpressionTimeoutMilliseconds);
+            _dte2.Debugger.GetExpression(expressionString, Timeout: _timeout);
         }
 
         private void GetDumpResult()

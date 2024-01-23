@@ -2,7 +2,7 @@
 <img src="https://raw.githubusercontent.com/flash2048/DebugHelper/main/assets/DebugHelper256.png" width="100" height="100" />
 
 # DebugHelper
-DebugHelper is a Visual Studio extension designed to improve your debugging experience. (**preview version**)
+DebugHelper is a Visual Studio extension designed to improve your debugging experience.
 
 ## Download
 
@@ -14,14 +14,12 @@ DebugHelper is a Visual Studio extension designed to improve your debugging expe
 # Menu by mouse click on an object:
 <img src="https://raw.githubusercontent.com/flash2048/DebugHelper/main/assets/Menu_by_mouse_click.png" />
 
-# Export as a Json:
-<img src="https://raw.githubusercontent.com/flash2048/DebugHelper/main/assets/ExportJson.png" />
+### Export as a Json, Export as a C# code, Export as a text:
+<img src="https://raw.githubusercontent.com/flash2048/DebugHelper/main/assets/ExportDialog.gif" />
 
-# Export as a C# code:
-<img src="https://raw.githubusercontent.com/flash2048/DebugHelper/main/assets/ExportCSharp.png" />
-
-# Export as a text:
-<img src="https://raw.githubusercontent.com/flash2048/DebugHelper/main/assets/ExportConsole.png" />
+## Image viewer:
+#### View and save images from strings, byte arrays, memory strings, etc.
+<img src="https://raw.githubusercontent.com/flash2048/DebugHelper/main/assets/ImageViewer.png" />
 
 # Configurable:
 <img src="https://raw.githubusercontent.com/flash2048/DebugHelper/main/assets/Options.png" />

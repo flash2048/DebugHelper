@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="AvalonEdit\AbstractFoldingStrategy.cs" />
     <Compile Include="AvalonEdit\BraceFoldingStrategy.cs" />
+    <Compile Include="Commands\ImageCommand.cs" />
     <Compile Include="Commands\Internal\CommandHelper.cs" />
     <Compile Include="Commands\ExportCommand.cs" />
     <Compile Include="Commands\IMenuCommand.cs" />
@@ -58,12 +59,16 @@
     <Compile Include="Dialogs\ExportDialog.xaml.cs">
       <DependentUpon>ExportDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\ImageDialog.xaml.cs">
+      <DependentUpon>ImageDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\Dte2Extension.cs" />
     <Compile Include="Options\DebugHelperOptions.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DebugHelperPackage.cs" />
+    <Compile Include="Utilities\ExpressionStrings.cs" />
     <Compile Include="Utilities\FrameworkVersionUtils.cs" />
     <Compile Include="Utilities\TemporaryFile.cs" />
     <Compile Include="Utilities\TextUtils.cs" />
@@ -110,6 +115,9 @@
     <Resource Include="Imgs\json.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Imgs\image.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Libs\net48\Newtonsoft.Json.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -150,12 +158,16 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Imgs\DebugHelper.ico">
+    <Resource Include="Imgs\DebugHelper.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Dialogs\ExportDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\ImageDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

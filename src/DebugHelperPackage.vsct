@@ -54,6 +54,17 @@
 					<ButtonText>Object export</ButtonText>
 				</Strings>
 			</Button>
+			<Button guid="guidDebugHelperPackageCmdSet" id="ImageCommandId" priority="0x0300" type="Button">
+				<Parent guid="guidDebugHelperPackageCmdSet" id="DebugHelperMenuGroup" />
+				<Icon guid="ImageCatalogGuid" id="Image" />
+				<CommandFlag>DefaultInvisible</CommandFlag>
+				<CommandFlag>DynamicVisibility</CommandFlag>
+				<CommandFlag>IconAndText</CommandFlag>
+				<CommandFlag>IconIsMoniker</CommandFlag>
+				<Strings>
+					<ButtonText>Show image</ButtonText>
+				</Strings>
+			</Button>
 		</Buttons>
 
 		<Bitmaps>
@@ -75,6 +86,7 @@
 			<IDSymbol name="DebugHelperTopMenuGroup" value="0x1020" />
 			<!--<IDSymbol name="ObjectExplorerCommandId" value="0x0100" />-->
 			<IDSymbol name="ExportCommandId" value="0x0200" />
+			<IDSymbol name="ImageCommandId" value="0x0300" />
 			<IDSymbol name="DebugHelperMenuGroup" value="0x1100"/>
 			<IDSymbol name="DebugHelperSubMenu" value="0x1200"/>
 		</GuidSymbol>

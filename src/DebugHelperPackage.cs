@@ -47,6 +47,7 @@ namespace DebugHelper
             _menuItems = new IMenuCommand[]
             {
                 (new ExportCommand(this, dte2, _options)),
+                (new ImageCommand(this, dte2, _options)),
             }.Select(AddMenuCommand).ToList();
         }
 

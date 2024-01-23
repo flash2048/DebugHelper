@@ -9,7 +9,7 @@ namespace DebugHelper.Commands.Internal
     {
         private readonly DTE2 _dte;
 
-        public CommandHelper(DTE2 dte, IServiceProvider serviceProvider)
+        public CommandHelper(DTE2 dte, IServiceProvider _)
         {
             _dte = dte ?? throw new ArgumentNullException(nameof(dte));
         }
