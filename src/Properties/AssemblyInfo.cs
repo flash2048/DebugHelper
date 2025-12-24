@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Andrei Amialchenia")]
 [assembly: AssemblyProduct("DebugHelper")]
-[assembly: AssemblyCopyright("Copyright (c) 2023 Andrei Amialchenia <andrei.amialchenia@gmail.com>, released under the GPL.")]
+[assembly: AssemblyCopyright("Copyright (c) 2025 Andrei Amialchenia <andrei.amialchenia@gmail.com>, released under the GPL.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

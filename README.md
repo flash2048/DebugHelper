@@ -25,5 +25,8 @@ DebugHelper is a Visual Studio extension designed to improve your debugging expe
 <img src="https://raw.githubusercontent.com/flash2048/DebugHelper/main/assets/Options.png" />
 
 # Powered By:
-| [ObjectDumper.NET](https://github.com/thomasgalliker/ObjectDumper)
-| [AvalonEdit](https://github.com/icsharpcode/AvalonEdit)
+[ObjectDumper.NET](https://github.com/thomasgalliker/ObjectDumper)
+
+[AvalonEdit](https://github.com/icsharpcode/AvalonEdit)
+
+[Object Dumper](https://github.com/ycherkes/ObjectDumper)
